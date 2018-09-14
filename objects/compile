@@ -1,0 +1,20 @@
+#!/bin/bash
+#
+# - script for building using gcc
+# - also has debugging options
+
+cmpl_out="test-bytearray"
+
+gcc implementation.c \
+  byte.h \
+  elem.h \
+  file.h \
+  word.h \
+  wordarray.h \
+  -o "$cmpl_out"
+
+if [ "$1" = "-fs" ] || [ "$1" = "--find-segfault" ] ;
+  then
+  echo "run" | gbd "./$cmpl_out"
+  valgrind --leak-check=full "./$cmpl_out"
+fi

@@ -1,0 +1,34 @@
+#!/bin/bash
+#
+# - script for building using gcc
+# - also has debugging options
+
+cmpl_out="test-bytearray"
+OBJ="obj/obj"
+TYPE="obj/type"
+BYTE="obj/byte/byte"
+LIST="obj/list/list"
+NODE="obj/list/node"
+DLIST="obj/list/dlist/dlist"
+NLIST="obj/list/nlist/nlist"
+STACK="obj/list/stack/stack"
+
+gcc "implementation.c" \
+  "$TYPE.h" \
+  "$OBJ.h" \
+  "$OBJ.c" \
+  "$BYTE.h" \
+  "$BYTE.c" \
+  "$LIST.h" \
+  "$NODE.h" \
+  "$NODE.c" \
+  "$STACK.h" \
+  "$STACK.c" \
+  "print/printby.h" \
+  -o "$cmpl_out"
+
+if [ "$1" = "-fs" ] || [ "$1" = "--find-segfault" ] ;
+  then
+  valgrind --leak-check=full "./$cmpl_out"
+  #echo "run" | gbd "./$cmpl_out"
+fi

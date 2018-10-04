@@ -1,7 +1,5 @@
-#!/bin/sh
+#!/bin/bash
+#
+# build.sh
 
-gcc src/implementation.c \
-	src/obj/types.h \
-	src/obj/object.h \
-	src/obj/object.c \
-	-o bin/test
+gcc -c lang/primitives.h -o lang/primitives.o

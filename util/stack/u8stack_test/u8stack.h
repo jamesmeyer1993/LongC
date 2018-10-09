@@ -1,21 +1,23 @@
 #ifndef _U8_STACK_H_
 #define _U8_STACK_H_
 
+#include "longc/lang/primitives.h"
+
 struct u8node {
   struct u8node *next;
   u8 *elem;
-}
+};
 
 struct u8stack {
-  u8node *head;
+  struct u8node *head;
   u32 length;
 };
 
 struct u8stack init_stack();
 
-void u8stack_push(struct u8stack *self, u8 *elem);
+void u8stack_push(struct u8stack *self, const u8 *elem);
 
-u8 u8stack_pop(struct u8stack *self);
+u8* u8stack_pop(struct u8stack *self);
 
 u8* u8stack_peek(struct u8stack *self);
 

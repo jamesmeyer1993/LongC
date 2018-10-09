@@ -10,11 +10,21 @@ is created, it cannot be changed - only a memcpy can write over its data.
 
 #include "longc/lang/primitives.h"
 
+#define ref_t 32
+#define mut_ref_t 33
+
 typedef struct ref {
-  const u32 type;
+  const u8 type:8;
   const void* elem;
 } ref;
 
-ref* new_ref(const u32 t, const void *e);
+typedef struct mut_ref {
+  u8 type:8;
+  void* elem;
+} mut_ref;
+
+#define deref( TYPE , REF ) *( (TYPE* )REF )
+
+ref* new_ref(const u8 t, const void *e);
 
 #endif

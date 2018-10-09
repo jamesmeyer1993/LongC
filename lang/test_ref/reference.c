@@ -2,10 +2,11 @@
 #include <stdlib.h>
 #include "reference.h"
 
-ref* new_ref(const u32 t, const void *e){
-  const ref mref = {t,e};
-  //mut_ref mref = {t,e};
-  ref *rf = malloc(sizeof(ref));
-  memcpy(rf, &mref, sizeof(ref));
+#include <stdio.h>
+
+ref* new_ref(const u8 t, const void *e){
+  const ref mref = {t,e};           // mref - mutable reference
+  ref *rf = malloc(sizeof(ref));    // allocate a pointer for the return
+  memcpy(rf, &mref, sizeof(ref));   // memcpy in order to init a malloc'd reference
   return rf;
 }

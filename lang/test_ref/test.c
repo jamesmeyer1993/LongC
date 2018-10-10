@@ -7,8 +7,8 @@
 #define VALID_EXIT 0
 
 u32 array_test_256();
-u32 array_test_256_subtest0(ref rlist, u32 *positive_ints);
-u32 array_test_256_subtest1(ref rlist);
+u32 array_test_256_subtest0(const ref rlist, const u32 *positive_ints);
+u32 array_test_256_subtest1(const ref rlist);
 
 int main(){
 
@@ -77,7 +77,7 @@ u32 array_test_256(){
   return VALID_EXIT;
 }
 
-u32 array_test_256_subtest0(ref rlist, u32 *int_array){
+u32 array_test_256_subtest0(const ref rlist, const u32 *int_array){
   u32 *iterator = (u32*)rlist.elem;
   for(u32 i = 0; i < 256; i++){
     assert(iterator[i] == int_array[i]);
@@ -86,7 +86,7 @@ u32 array_test_256_subtest0(ref rlist, u32 *int_array){
   return VALID_EXIT;
 }
 
-u32 array_test_256_subtest1(ref rlist){
+u32 array_test_256_subtest1(const ref rlist){
   u32 *iterator = (u32*)rlist.elem;
   u32 onstack = 0;
   for(u32 i = 0; i < 256; i++){

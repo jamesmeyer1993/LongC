@@ -1,15 +1,13 @@
 #include "longc/lang/primitives.h"
-#include "reference.h"
+#include "longc/lang/reference.h"
 #include <assert.h>
 #include <stdlib.h>
 #include <stdio.h>
 
 #define VALID_EXIT 0
-#define u8_t 1
-#define u32_t 2
 
 u32 array_test_256();
-u32 array_test_256_subtest0(rlist, positive_ints);
+u32 array_test_256_subtest0(ref rlist, u32 *positive_ints);
 u32 array_test_256_subtest1(ref rlist);
 
 int main(){

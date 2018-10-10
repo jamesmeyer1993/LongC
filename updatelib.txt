@@ -1,1 +1,4 @@
 lang/primitives.o
+lang/primitives.h
+lang/reference.o
+lang/reference.h

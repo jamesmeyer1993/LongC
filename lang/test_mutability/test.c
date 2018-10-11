@@ -4,6 +4,9 @@
 #include <stdio.h>
 #include <string.h>
 
+/* mod_const
+  This function is a test do see to what extent a constant can be modified.
+*/
 void mod_const(const u32 *ptr){
   u32 mutable = *ptr;
   mutable = mutable << 1;

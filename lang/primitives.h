@@ -3,18 +3,6 @@
 
 // Additional, clearly define types provided by LongC
 // Regular primitives - types
-/*
-#define i8 char
-#define u8 unsigned char
-#define i16 short
-#define u16 unsigned short
-#define i32 int
-#define u32 unsigned int
-#define f32 float
-#define i64 long
-#define u64 unsigned long
-#define f64 double
-*/
 typedef char i8;
 typedef unsigned char u8;
 typedef short i16;
@@ -36,6 +24,8 @@ typedef double f64;
 #define i64_t 8
 #define u64_t 9
 #define f64_t 10
+
+#define mut( TYPE ) mut_ ## TYPE
 
 // tuples of two types
 #define DEF_TUPLE_OF( T1 , T2 ); struct \

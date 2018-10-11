@@ -10,6 +10,12 @@
 
 longc="/usr/include/longc"
 
-gcc "$longc/lang/reference.o" \
-  test.c \
-  -o $1
+status="cmplstatus.txt"
+echo "$(gcc "$longc/lang/reference.h" "$longc/lang/reference.o" "$1" -o "$2")" \
+  | grep -c "error" > "$status"
+
+if [ "$(echo $(cat "$status") | grep -c "error")" -eq "0" ] ; then
+  printf "Successful compilation: $1  -->   $2\n\n"
+fi
+
+rm "$status"

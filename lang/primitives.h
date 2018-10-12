@@ -28,11 +28,18 @@ typedef double f64;
 #define mut( TYPE ) mut_ ## TYPE
 
 // tuples of two types
-#define DEF_TUPLE_OF( T1 , T2 ); struct \
-T1 ## _ ## T2 { \
+#define DEF_TUPLE_OF( T1 , T2 ) \
+typedef struct T1 ## _ ## T2 { \
   T1 a; \
   T2 b; \
+} T1 ## _ ## T2;
+
+#define OF( T1 , T2 ) DEF_TUPLES_OF( T1 , T2 )
+
+#define DEF_TUPLES( T ){
+
 }
+
 // this is where all the tuples are generated
 // we don't really want to write all those structures
 DEF_TUPLE_OF( i8 , i8 );  // i8_i8

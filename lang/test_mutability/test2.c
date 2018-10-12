@@ -1,6 +1,8 @@
-#include <longc/lang/primitives.h>
-#include <longc/lang/reference.h>
+//#include <longc/lang/primitives.h>
+//#include <longc/lang/reference.h>
+#include <longc/lang.h>
 #include <assert.h>
+#include <string.h>
 
 u32 main(){
 
@@ -15,7 +17,7 @@ u32 main(){
 
   mut_ref mr0;
   mut_ref mr1;
-  mut_ret mr2;
+  mut_ref mr2;
 
   const u8 refsize = sizeof(ref);
   assert( sizeof(mut_ref) == refsize );

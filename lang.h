@@ -72,25 +72,24 @@ mut_ref* new_mut_ref(u32 t, void *e);
 Generates types automatically for strong type'd programs.
 An example tuple could be u32_
 */
-
 #define _TUPLE_OF( T1 , T2 ) typedef \
 struct T1 ## _ ## T2 { \
-  T1 a; \
-  T2 b; \
-} T1 ## _ ## T2
+  const T1 a; \
+  const T2 b; \
+} T1 ## _ ## T2; \
 
 #define DEF_TUPLES_LANG( T ) \
-  _TUPLE_OF( T , u8 ); \
-  _TUPLE_OF( T , i8 ); \
-  _TUPLE_OF( T , u16 ); \
-  _TUPLE_OF( T , i16 ); \
-  _TUPLE_OF( T , u32 ); \
-  _TUPLE_OF( T , i32 ); \
-  _TUPLE_OF( T , f32 ); \
-  _TUPLE_OF( T , u64 ); \
-  _TUPLE_OF( T , i64 ); \
-  _TUPLE_OF( T , f64 ); \
-  _TUPLE_OF( T , ref );
+  _TUPLE_OF( T , u8 ) \
+  _TUPLE_OF( T , i8 ) \
+  _TUPLE_OF( T , u16 ) \
+  _TUPLE_OF( T , i16 ) \
+  _TUPLE_OF( T , u32 ) \
+  _TUPLE_OF( T , i32 ) \
+  _TUPLE_OF( T , f32 ) \
+  _TUPLE_OF( T , u64 ) \
+  _TUPLE_OF( T , i64 ) \
+  _TUPLE_OF( T , f64 ) \
+  _TUPLE_OF( T , ref )
 
 /* This is basically a static for-each of the above */
 DEF_TUPLES_LANG(i8)
@@ -104,6 +103,7 @@ DEF_TUPLES_LANG(u64)
 DEF_TUPLES_LANG(i64)
 DEF_TUPLES_LANG(f64)
 DEF_TUPLES_LANG(ref)
-/* Done --> we've typedef'd 144 typle types. 12 of them, both types are equal */
+/* Done --> we've typedef'd (24^2)=576 typle types. Out of 34 them, both types
+are equal */
 
 #endif

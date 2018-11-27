@@ -1,69 +1,69 @@
 #ifndef STRING_H_
 #define STRING_H_
 
+#include <longc/lang.h>
+
 #define DEFAULT_STRING_CAPACITY 8
 #define DEFAULT_STRING_LEN 0
 
 struct string{
-	char* c;
-	int len;
-	int capacity;
-	unsigned int resizable;
+	i8* c;
+	size_t len;
+	size_t capacity;
 };
 
-struct string* new_string();
+typedef struct string String;
 
-struct string* new_string1(int capacity);
+String* new_string();
 
-struct string* new_string2(const char* str);
+String* new_string_with_capacity(const size_t capacity);
 
-void init_string(struct string* self);
+String* new_string_from(const char *str);
 
-void init_string1(struct string* self, const char* str);
+void init_string(String* self);
+
+void init_string_from(String* self, const char* str);
+
+void free_string(String *self);
 
 //	*	*	*	MATH OPERATORS	*	*	*
 
-struct string* string_add(struct string* a, struct string* b);
+String* string_add(const String *self, const String *other);
 
-struct string* string_sub(struct string* a, struct string* b);
+String* string_sub(const String *self, const String *other);
 
-struct string* string_mul(struct string* a, struct string* b);
+String* string_mul(const String *self, const String *other);
 
-struct string* string_div(struct string* a, struct string* b);
+String* string_div(const String *self, const String *other);
 
-struct string* string_mod(struct string* a, struct string* b);
+String* string_mod(const String *self, const String *other);
 
 //	*	*	*	Logic Operators	*	*	*
 
-int string_eq(struct string* a, struct string* b);
+u32 string_eq(const String *self, const String *other);
 
-int string_cmpr(struct string* a, struct string* b);
-
-//	*	*	*	OPERATORS	*	*	*
-
-void string_copy(struct string* dest, struct string* src);
-
-void string_concat(struct string* dest, struct string* src);
-
-void string_append(struct string* dest, struct string* src);
-
-struct string string_clone(struct string* self);
-
-struct string* string_substr(struct string* src, int begin, int end);
-
+i32 string_cmpr(const String *self, const String *other);
 
 //	*	*	*	OPERATORS	*	*	*
 
-void string_indexof(struct string* dest, struct string* src);
+void string_concat(String* self, String* other);
 
-int string_endswith(struct string* src, struct string* target);
+String* string_clone(String* self);
 
-int string_startswith(struct string* src, struct string* target);
+String* string_substr(const String* self, const u32 begin, const u32 end);
+
+void string_shift(String* self, i32 amount);
+
+//	*	*	*	OPERATORS	*	*	*
+
+i32 string_index_of(const String* self, const String* target);
+
+u32 string_ends_with(const String* self, const String* target);
+
+u32 string_starts_with(const String* self, const String* target);
 
 //	*	*	*	Display	*	*	*
 
-int string_print(struct string* src);
-
-
+void string_print(const String* self);
 
 #endif /* STRING_H_ */

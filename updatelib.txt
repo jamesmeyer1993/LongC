@@ -3,3 +3,5 @@ lang.o
 lang/primitives.h
 lang/reference.o
 lang/reference.h
+
+util/array.h

@@ -1,8 +1,7 @@
 #ifndef _COMPARABLE_H_
 #define _COMPARABLE_H_
 
-// #define IS_COMPARALBE( T )
-//   T ##_is_comparable
+#include <longc/lang.h>
 
 //    *   *   * Generic Functions *   *   *
 

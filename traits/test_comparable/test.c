@@ -17,7 +17,7 @@ obj init_obj(u64 code, void* ptr){
   return self;
 }
 
-TRAIT( COMPARABLE , obj );
+TRAIT( COMPARABLE , obj )
 
 i32 obj_cmpr(const obj *self, const obj *other){
   assert(IMPLEMENTS(COMPARABLE,obj));

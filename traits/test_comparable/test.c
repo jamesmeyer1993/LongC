@@ -2,8 +2,8 @@
 #include <stdio.h>
 #include <string.h>
 #include <longc/lang.h>
-#include "../trait.h"
-#include "../comparable.h"
+#include <longc/traits/trait.h>
+#include <longc/traits/comparable.h>
 
 typedef struct obj_ {
   u64 hash_code;
@@ -20,7 +20,7 @@ obj init_obj(u64 code, void* ptr){
 TRAIT( COMPARABLE , obj )
 
 i32 obj_cmpr(const obj *self, const obj *other){
-  assert(IMPLEMENTS(COMPARABLE,obj));
+  //assert(IMPLEMENTS(COMPARABLE,obj));
 
   i32 r = memcmp( self, other, sizeof(obj) );
 
@@ -34,7 +34,7 @@ i32 obj_cmpr(const obj *self, const obj *other){
 }
 
 u32 obj_eq(const obj *self, const obj *other){
-  assert(IMPLEMENTS(COMPARABLE,obj));
+  //assert(IMPLEMENTS(COMPARABLE,obj));
 
   if( obj_cmpr(self, other) == 0 ){
     return 1;
@@ -46,7 +46,7 @@ u32 obj_eq(const obj *self, const obj *other){
 i32 main(void){
 
   //printf("\n%d\n", IMPLEMENTS(COMPARABLE,obj));
-  assert( IMPLEMENTS( COMPARABLE , obj ) );
+  //assert( IMPLEMENTS( COMPARABLE , obj ) );
 
   obj o1 = init_obj(324, NULL);
   obj o2 = init_obj(7794324, NULL);
@@ -65,6 +65,13 @@ i32 main(void){
   {
     assert( cmpr(obj, &o1, &o3) == 0 );
     assert( eq(obj, &o1, &o3) == 1);
+  }
+
+  {
+    //assert( IMPLEMENTS( COMPARABLE , u8) );
+    u8 x = 1;
+    u8 y = 2;
+    printf("%d\n", cmpr(u8, &x, &y));
   }
 
   printf("Trait tests pass!\n");

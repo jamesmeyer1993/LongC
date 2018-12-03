@@ -1,10 +1,7 @@
 lang.h
 lang.o
-
 util/array.h
-
 string/string.h
 string/string.o
-
 traits/trait.h
 traits/comparable.h

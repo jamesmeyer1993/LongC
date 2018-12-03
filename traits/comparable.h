@@ -37,18 +37,18 @@
 
 // A bridge macro for generating the full global constant that allows the
 //  developer to check if a type implements comparable
-#define COMPARABLE_IMPLEMENTS( T ) T ## _implements_comparable
+//#define COMPARABLE_IMPLEMENTS( T ) T ## _implements_comparable
 
 // The actual comparable trait as a header / function prototype declaration.
 //  This macro adds the comparable functions to a type
 #define COMPARABLE_TRAIT( T ) \
   \
-  const u32 COMPARABLE_IMPLEMENTS( T ) = 1; \
-  \
   i32 T ## _cmpr(const T *self , const T *other ); \
   \
   u32 T ## _eq(const T *self, const T *other ); \
   \
-  u32 T ## _approx(const T *self, const T *other, const f64 degree )
+  u32 T ## _approx(const T *self, const T *other, const f64 degree );
+
+// const u32 T ## _implements_comparable = 1;
 
 #endif //_COMPARABLE_H_

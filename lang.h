@@ -5,6 +5,9 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include <longc/traits/trait.h>
+#include <longc/traits/comparable.h>
+
 // Additional, clearly define types provided by LongC
 // Regular primitives - types
 typedef char i8;
@@ -62,7 +65,7 @@ typedef struct mut_ref {
   void* src;
 } mut_ref;
 
-#define to_deref( TYPE , REF ) *( (TYPE*)REF )
+#define deref( TYPE , REF ) *( (TYPE*)REF )
 
 ref* new_ref(const u32 t, const void *e);
 
@@ -106,4 +109,17 @@ DEF_TUPLES_LANG(ref)
 /* Done --> we've typedef'd (24^2)=576 typle types. Out of 34 them, both types
 are equal */
 
-#endif
+TRAIT( COMPARABLE, u8 )
+TRAIT( COMPARABLE, i8 )
+TRAIT( COMPARABLE, u16)
+TRAIT( COMPARABLE, i16)
+TRAIT( COMPARABLE, u32)
+TRAIT( COMPARABLE, i32)
+TRAIT( COMPARABLE, f32)
+TRAIT( COMPARABLE, u64)
+TRAIT( COMPARABLE, i64)
+TRAIT( COMPARABLE, f64)
+TRAIT( COMPARABLE , ref)
+
+
+#endif /* _LANG_H_ */

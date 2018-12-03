@@ -10,9 +10,16 @@ typedef struct obj_ {
   void* self;
 } obj;
 
+obj init_obj(u64 code, void* ptr){
+  obj self;
+  self.hash_code = code;
+  self.self = ptr;
+  return self;
+}
+
 TRAIT( COMPARABLE , obj );
 
-i32 obj_cmpr(obj *self, obj *other){
+i32 obj_cmpr(const obj *self, const obj *other){
   assert(IMPLEMENTS(COMPARABLE,obj));
 
   i32 r = memcmp( self, other, sizeof(obj) );
@@ -26,7 +33,7 @@ i32 obj_cmpr(obj *self, obj *other){
   }
 }
 
-u32 obj_eq(obj *self, obj *other){
+u32 obj_eq(const obj *self, const obj *other){
   assert(IMPLEMENTS(COMPARABLE,obj));
 
   if( obj_cmpr(self, other) == 0 ){
@@ -41,13 +48,9 @@ i32 main(void){
   //printf("\n%d\n", IMPLEMENTS(COMPARABLE,obj));
   assert( IMPLEMENTS( COMPARABLE , obj ) );
 
-  obj o1;
-  o1.hash_code = 8874;
-  o1.self = NULL;
-
-  obj o2;
-  o2.hash_code = 7782;
-  o2.self = NULL;
+  obj o1 = init_obj(324, NULL);
+  obj o2 = init_obj(7794324, NULL);
+  obj o3 = init_obj(324, NULL);
 
   {
     assert( obj_cmpr(&o1, &o2) != 0 );
@@ -57,6 +60,11 @@ i32 main(void){
   {
     assert( cmpr(obj, &o1, &o2) != 0);
     assert( !eq(obj, &o1, &o2) );
+  }
+
+  {
+    assert( cmpr(obj, &o1, &o3) == 0 );
+    assert( eq(obj, &o1, &o3) == 1);
   }
 
   printf("Trait tests pass!\n");

@@ -1,5 +1,4 @@
-#include "longc/lang/primitives.h"
-#include "longc/lang/reference.h"
+#include "longc/lang.h"
 #include <assert.h>
 #include <stdio.h>
 #include <string.h>

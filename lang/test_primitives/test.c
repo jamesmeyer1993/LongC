@@ -1,5 +1,5 @@
 #include <assert.h>
-#include "longc/lang/primitives.h"
+#include "longc/lang.h"
 
 int main(){
 

@@ -5,3 +5,9 @@ lang/reference.o
 lang/reference.h
 
 util/array.h
+
+string/string.h
+string/string.o
+
+traits/trait.h
+traits/comparable.h

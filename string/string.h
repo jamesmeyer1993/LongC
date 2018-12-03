@@ -38,6 +38,8 @@ String* string_div(const String *self, const String *other);
 
 String* string_mod(const String *self, const String *other);
 
+String* string_xor(const String *self, const String *other);
+
 //	*	*	*	Logic Operators	*	*	*
 
 u32 string_eq(const String *self, const String *other);

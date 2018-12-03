@@ -13,6 +13,28 @@
 //  implements comparable
 #define eq( T , self , other ) T ## _eq( (self), (other) )
 
+// approx(type, self, other, degree)
+//  @returns 1 or 0 - true or false.
+//  approx is to behave similarly to eq, but with a range of difference between
+//  @self and @other.
+/*  The following examples can apply to the following types:
+
+    approx(f64, 3.145678, 3.145899, 3) -> returns true
+
+    approx(u32, 512, 530, 2) -> returns true
+
+    approx(string,
+      new_string_from("hello world"),
+      new_string_from("hello WORLD"), 5) -> returns true because there are 5
+      equal elements
+
+    approx(string,
+      new_string_from("hello world!"),
+      new_string_from("hello WORLD!"), 50%)
+      -> return true because the strings share 50% of the same elements
+*/
+#define approx( T , self , other , degree ) T ## _approx( (self) , (other) , (degree) )
+
 // A bridge macro for generating the full global constant that allows the
 //  developer to check if a type implements comparable
 #define COMPARABLE_IMPLEMENTS( T ) T ## _implements_comparable
@@ -23,8 +45,10 @@
   \
   const u32 COMPARABLE_IMPLEMENTS( T ) = 1; \
   \
-  i32 T ## _cmpr( T *self , T *other ); \
+  i32 T ## _cmpr(const T *self , const T *other ); \
   \
-  u32 T ## _eq( T *self, T *other )
+  u32 T ## _eq(const T *self, const T *other ); \
+  \
+  u32 T ## _approx(const T *self, const T *other, const f64 degree )
 
 #endif //_COMPARABLE_H_

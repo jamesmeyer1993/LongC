@@ -10,12 +10,31 @@ longc="/usr/include/longc"
 cp -v "lang.h" "$longc"
 cp -v "traits/trait.h" "${longc}/traits"
 cp -v "traits/comparable.h" "${longc}/traits"
+cp -v "traits/constructable.h" "${longc}/traits"
+cp -v "traits/constructable_from.h" "${longc}/traits"
+cp -v "traits/collection.h" "${longc}/traits"
 
-# make primitive.o
-gcc -c $flags lang/primitive.c -o lang/primitive.o
-cp -v "lang/primitive.h" "${longc}/primitive"
-cp -v "lang/primitive.o" "${longc}/primitive"
 # make string.o
+# dependencies:
+#   - lang.h
+#   - traits/comparable.h
+#   - traits/constructable.h
+#   - traits/constructable_from.h
+#   - traits/collection.h
 gcc -c $flags string/string.c -o string/string.o
 cp -v "string/string.h" "${longc}/string"
 cp -v "string/string.o" "${longc}/string"
+
+# dependencies:
+#   - string/string.h
+cp -v "traits/stringable.h" "${longc}/traits"
+
+# make primitive.o
+# dependencies:
+#   - lang.h
+#   - traits/trait.h
+#   - traits/comparable.h
+#   - traits/stringable.h
+gcc -c $flags lang/primitive.c -o lang/primitive.o
+cp -v "lang/primitive.h" "${longc}/primitive"
+cp -v "lang/primitive.o" "${longc}/primitive"

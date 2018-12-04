@@ -35,13 +35,13 @@
 */
 #define approx( T , self , other , degree ) T ## _approx( (self) , (other) , (degree) )
 
-// A bridge macro for generating the full global constant that allows the
-//  developer to check if a type implements comparable
-//#define COMPARABLE_IMPLEMENTS( T ) T ## _implements_comparable
+#define implements_comparable( T ) T ## _implements_comparable(void)
 
 // The actual comparable trait as a header / function prototype declaration.
 //  This macro adds the comparable functions to a type
 #define COMPARABLE_TRAIT( T ) \
+  \
+  inline u32 T ## _implements_comparable(void); \
   \
   i32 T ## _cmpr(const T *self , const T *other ); \
   \

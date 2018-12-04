@@ -1,7 +1,8 @@
 lang.h
-lang.o
+traits/trait.h
+traits/comparable.h
+lang/primitive.h
+lang/primitive.o
 util/array.h
 string/string.h
 string/string.o
-traits/trait.h
-traits/comparable.h

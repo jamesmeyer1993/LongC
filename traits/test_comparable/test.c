@@ -68,10 +68,10 @@ i32 main(void){
   }
 
   {
-    //assert( IMPLEMENTS( COMPARABLE , u8) );
     u8 x = 1;
     u8 y = 2;
     printf("%d\n", cmpr(u8, &x, &y));
+    
   }
 
   printf("Trait tests pass!\n");

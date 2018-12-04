@@ -5,6 +5,12 @@
 #include <longc/traits/trait.h>
 #include <longc/traits/comparable.h>
 
+enum PRIMITIVE_APPROX_FLAGS {
+  BY_BITS,
+  BY_DECIMAL,
+  BY_PERCENT,
+};
+
 TRAIT( COMPARABLE, u8 )
 TRAIT( COMPARABLE, i8 )
 TRAIT( COMPARABLE, u16)

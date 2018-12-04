@@ -35,19 +35,19 @@
 */
 #define approx( T , self , other , degree ) T ## _approx( (self) , (other) , (degree) )
 
-#define implements_comparable( T ) T ## _implements_comparable(void)
+#define implements_comparable( T ) T ## _implements_comparable()
 
 // The actual comparable trait as a header / function prototype declaration.
 //  This macro adds the comparable functions to a type
 #define COMPARABLE_TRAIT( T ) \
   \
-  inline u32 T ## _implements_comparable(void); \
+  u32 T ## _implements_comparable(); \
   \
   i32 T ## _cmpr(const T *self , const T *other ); \
   \
   u32 T ## _eq(const T *self, const T *other ); \
   \
-  u32 T ## _approx(const T *self, const T *other, const f64 degree );
+  u32 T ## _approx(const T *self, const T *other, const u32_f64 degree );
 
 // const u32 T ## _implements_comparable = 1;
 

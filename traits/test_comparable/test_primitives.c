@@ -11,10 +11,10 @@ i32 main(void){
 
     assert( implements_comparable(u8) );
     assert( cmpr(u8, &x, &y) != 0 );
-    // assert( !eq(u8, &x, &y) );
-    // assert( approx(u8, &x, &y, 1) );
-    // assert( !approx(u8, &x, &y, 2) );
-    // assert( !approx(u8, &x, &y, 0) );
+    assert( !eq(u8, &x, &y) );
+
+    y = 1;
+    assert( eq(u8, &x, &y) );
   }
 
   return 0;

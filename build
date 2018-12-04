@@ -1,0 +1,21 @@
+#!/bin/bash
+#
+# build.sh
+# - generates the object files for longc
+#	- generally used in conjunction with ubdate lib
+
+flags="-g -Wall -std=c11"
+longc="/usr/include/longc"
+
+cp -v "lang.h" "$longc"
+cp -v "traits/trait.h" "${longc}/traits"
+cp -v "traits/comparable.h" "${longc}/traits"
+
+# make primitive.o
+gcc -c $flags lang/primitive.c -o lang/primitive.o
+cp -v "lang/primitive.h" "${longc}/primitive"
+cp -v "lang/primitive.o" "${longc}/primitive"
+# make string.o
+gcc -c $flags string/string.c -o string/string.o
+cp -v "string/string.h" "${longc}/string"
+cp -v "string/string.o" "${longc}/string"

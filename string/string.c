@@ -197,14 +197,11 @@ String* string_substr(const String* self, const u32 begin, const u32 end){
   substr->c = malloc(substr->capacity);
   assert(substr->c != NULL);
 
+  // pointer arithmetic causes the start position to be at the index of "begin"
   const char *ptr_start = self->c + begin;
   memcpy(substr->c, ptr_start, substr->capacity - 1);
   substr->len = substr->capacity - 1;
-  // substr->len = 0;
-  // for(u32 i = 0; i < end; i++){
-  //   substr->c[i] = self->c[begin + i];
-  //   substr->len++;
-  // }
+
   substr->c[substr->len] = '\0';
 
   ASSERT_HEAP_LEN_AND_CAPACITY( substr );

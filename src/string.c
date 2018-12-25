@@ -18,7 +18,7 @@ String* new(String){
   return new_with_capacity(String, DEFAULT_STRING_CAPACITY);
 }
 
-String* new_from(String, const char* str){
+String* new_from(String, chars, const char* str){
   String *self = malloc(sizeof(String));
 
   assert(self != NULL);
@@ -59,7 +59,7 @@ String init(String){
   return self;
 }
 
-String init_from(String, const char* str){
+String init_from(String, chars, const char* str){
   const size_t length = strlen(str);
   String self;
   self.c = malloc(length + 1);

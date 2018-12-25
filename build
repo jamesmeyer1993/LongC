@@ -11,8 +11,6 @@ CC="gcc"
 cp -v src/lang.h bin/lang.h
 
 # traits
-cp -v src/trait.h bin/trait.h
-cp -v src/constructable.h bin/constructable.h
 
 # string
 cp -v src/string.h bin/string.h

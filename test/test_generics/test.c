@@ -1,5 +1,4 @@
 #include "../../bin/lang.h"
-#include "../../bin/constructable.h"
 #include "../../bin/string.h"
 
 i32 main(void){

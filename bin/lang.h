@@ -1,6 +1,8 @@
 #ifndef _LANG_H_
 #define _LANG_H_
 
+#include <stdbool.h>
+
 // Additional, clearly define types provided by LongC
 // Regular primitives - types
 typedef char i8;
@@ -51,5 +53,25 @@ DEF_TUPLES_LANG(i64)
 DEF_TUPLES_LANG(f64)
 /* Done --> we've typedef'd (24^2)=576 typle types. Out of 34 them, both types
 are equal */
+
+/* Base constructors and initializers for generic types */
+#define implements_constructable( T ) T ## _implements_constructable
+
+#define new( T ) new_ ## T ## _()
+
+#define new_from( T_SELF , T_SRC , SRC ) new_ ## T ## _from_ ## T_SRC ## _( SRC )
+
+#define new_with_capacity( T , CAP ) new_ ## T ## _with_capacity_( CAP )
+
+#define init( T ) init_ ## T ## _()
+
+#define init_from( T_SELF , T_SRC , SRC ) init_ ## T_SELF ## _from_ ## T_SRC ## _( SRC )
+
+#define init_with_capacity( T , CAP ) init_ ## T ## _with_capacity_( CAP )
+
+#define heap_free( T , SELF ) heap_free_ ## T ## _( SELF )
+
+#define stack_free( T , SELF ) stack_free_ ## T ## _( SELF )
+/* end base constructors and initializers*/
 
 #endif /* _LANG_H_ */

@@ -3,8 +3,6 @@
 
 #include <stdlib.h>
 #include "lang.h"
-#include "trait.h"
-#include "constructable.h"
 
 #define DEFAULT_STRING_CAPACITY 8
 #define DEFAULT_STRING_LEN 0
@@ -17,18 +15,16 @@ struct string{
 
 typedef struct string String;
 
-//TRAIT( CONSTRUCTABLE, String )
-
 // generic arg expansion
 String* new(String);
 
-String* new_from(String, const char* str);
+String* new_from(String, chars, const char* str);
 
 String* new_with_capacity(String, size_t cap);
 
 String init(String);
 
-String init_from(String, const char* str);
+String init_from(String, chars, const char* str);
 
 String init_with_capacity(String, size_t cap);
 

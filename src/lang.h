@@ -56,8 +56,14 @@ are equal */
 
 //    *   *   * Generic Functions *   *   *
 
+// new( T )
+//  @accepts type to be allocated on heap
+//  @returns pointer to type T allocated on heap
 #define new( T ) new_ ## T ## _()
 
+// new_from(...)
+//  @accepts type to be allocated, type from, and source object
+//  @returns pointer to type T_SELF allocated on heap
 #define new_from( T_SELF , T_SRC , SRC ) new_ ## T ## _from_ ## T_SRC ## _( SRC )
 
 #define new_with_capacity( T , CAP ) new_ ## T ## _with_capacity_( CAP )
@@ -68,6 +74,9 @@ are equal */
 
 #define init_with_capacity( T , CAP ) init_ ## T ## _with_capacity_( CAP )
 
+// clone(...)
+//  @accepts type T, which is the type of SELF.
+//  @returns a full copy of the supplied type
 #define clone( T , SELF ) clone_ ## T ## _()
 
 #define heap_free( T , SELF ) heap_free_ ## T ## _( SELF )

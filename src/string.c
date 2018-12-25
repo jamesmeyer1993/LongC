@@ -13,6 +13,90 @@
   assert(STR.len == strlen(STR.c)); \
   assert(STR.capacity >= strlen(STR.c) + 1)
 
+// generic form args
+String* new(String){
+  return new_with_capacity(String, DEFAULT_STRING_CAPACITY);
+}
+
+String* new_from(String, const char* str){
+  String *self = malloc(sizeof(String));
+
+  assert(self != NULL);
+
+  const size_t length = strlen(str);
+  self->c = malloc(length + 1);
+
+  assert(self->c != NULL);
+
+  memcpy(self->c, str, length);
+  self->c[length] = '\0';
+  self->len = length;
+  self->capacity = length + 1;
+
+  ASSERT_HEAP_LEN_AND_CAPACITY( self );
+  return self;
+}
+
+String* new_with_capacity(String, const size_t cap){
+  String *self = malloc(sizeof(String));
+
+  assert(self != NULL);
+
+  self->c = malloc(cap);
+  self->capacity = cap;
+  memset(self->c, '\0', self->capacity);
+  self->len = 0;
+
+  ASSERT_HEAP_LEN_AND_CAPACITY( self );
+  return self;
+}
+
+String init(String){
+  String self;
+  self.c = malloc(sizeof(char) * DEFAULT_STRING_CAPACITY);
+  self.len = 0;
+  self.capacity = DEFAULT_STRING_CAPACITY;
+  return self;
+}
+
+String init_from(String, const char* str){
+  const size_t length = strlen(str);
+  String self;
+  self.c = malloc(length + 1);
+  self.capacity = length + 1;
+
+  assert(self.c != NULL);
+
+  memcpy(self.c, str, length);
+  self.c[length] = '\0';
+  self.len = length;
+
+  ASSERT_STACK_LEN_AND_CAPACITY( self );
+  return self;
+}
+
+String init_with_capacity(String, const size_t cap){
+  String self;
+  self.c = malloc(cap);
+  self.capacity = cap;
+  memset(self.c, '\0', self.capacity);
+
+  self.len = 0;
+  ASSERT_STACK_LEN_AND_CAPACITY( self );
+  return self;
+}
+
+void heap_free(String, String* self){
+  free(self->c);
+  free(self);
+}
+
+void stack_free(String, String* self){
+  free(self->c);
+}
+
+// end generic form args
+
 String* new_string(){
   return new_string_with_capacity(DEFAULT_STRING_CAPACITY);
 }

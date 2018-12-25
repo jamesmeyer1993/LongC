@@ -89,4 +89,16 @@ u32 string_starts_with(const String* self, const String* target);
 
 void string_print(const String* self);
 
+//	*		*		* Generic Functions of the String Type	*		*		*
+
+// to_String(...)
+//	@accepts the type of self, T and SELF
+//	@returns a string representation of an object
+#define to_String( T , SELF ) T ## _to_String( SELF )
+
+// stringify(...)
+//	@accepts the type of self, T and SELF
+//	@returns a representation of self serialized as a string
+#define stringify( T , SELF ) T ## _stringify( SELF )
+
 #endif /* STRING_H_ */

@@ -1,9 +1,11 @@
 #include <stdio.h>
 #include <assert.h>
 #include <stdbool.h>
-#include <longc/lang.h>
+#include <string.h>
+#include <stdlib.h>
 
-#include "../string.h"
+#include "../../bin/lang.h"
+#include "../../bin/string.h"
 
 #define TEST_TEXT_00 \
   "Voilà! In view, a humble vaudevillian veteran cast vicariously as both" \

@@ -2,8 +2,7 @@
 #define _PRIMITIVE_H_
 
 #include <longc/lang.h>
-#include <longc/traits/trait.h>
-#include <longc/traits/comparable.h>
+#include <longc/comparable.h>
 
 enum PRIMITIVE_APPROX_FLAGS {
   BY_BITS,

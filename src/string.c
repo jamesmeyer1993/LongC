@@ -2,8 +2,8 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-#include <longc/lang.h>
-#include <longc/string/string.h>
+#include "lang.h"
+#include "string.h"
 
 #define ASSERT_HEAP_LEN_AND_CAPACITY( STR ) \
   assert(STR->len == strlen(STR->c)); \

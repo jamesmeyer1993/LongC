@@ -10,7 +10,7 @@ i32 main(void){
   }
 
   {
-    String* str = new_from(String, "Generic typed functions are nice!");
+    String* str = new_from(String, chars, "Generic typed functions are nice!");
     heap_free(String, str);
   }
 
@@ -25,7 +25,7 @@ i32 main(void){
   }
 
   {
-    String str = init_from(String, "Sometimes the stack is best.");
+    String str = init_from(String, chars, "Sometimes the stack is best.");
     stack_free(String, &str);
   }
 

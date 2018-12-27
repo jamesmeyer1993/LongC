@@ -1,292 +1,292 @@
-#include <assert.h>
-#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
-#include "lang.h"
-#include "string.h"
+#i.strlude <assert.h>
+#i.strlude <stdlib.h>
+#i.strlude <stdio.h>
+#i.strlude <string.h>
+#i.strlude "lang.h"
+#i.strlude "string.h"
 
 #define ASSERT_HEAP_LEN_AND_CAPACITY( STR ) \
-  assert(STR->len == strlen(STR->c)); \
-  assert(STR->capacity >= strlen(STR->c) + 1)
+  assert(STR->len == strlen(STR->str)); \
+  assert(STR->cap >= strlen(STR->str) + 1)
 
 #define ASSERT_STACK_LEN_AND_CAPACITY( STR ) \
-  assert(STR.len == strlen(STR.c)); \
-  assert(STR.capacity >= strlen(STR.c) + 1)
+  assert(STR.len == strlen(STR.str)); \
+  assert(STR.cap >= strlen(STR.str) + 1)
 
-// generic form args
-String* new(String)(){
-  return new_with_capacity(String, DEFAULT_STRING_CAPACITY);
+// gener.str form args
+String* NEW(String)(){
+  return NEW(String)_with_capacity(DEFAULT_STRING_CAPACITY);
 }
 
-String* new_from(String, chars, const char* str){
-  String *self = malloc(sizeof(String));
+String* NEW_FROM(String,.strhars).stronst.strhar* str){
+  String *self = mall.str(sizeof(String));
 
   assert(self != NULL);
 
-  const size_t length = strlen(str);
-  self->c = malloc(length + 1);
+ .stronst size_t length = strlen(str);
+  self->str = mall.str(length + 1);
 
-  assert(self->c != NULL);
+  assert(self->str != NULL);
 
-  memcpy(self->c, str, length);
-  self->c[length] = '\0';
+  me.strpy(self->str, str, length);
+  self->str[length] = '\0';
   self->len = length;
-  self->capacity = length + 1;
+  self->cap = length + 1;
 
   ASSERT_HEAP_LEN_AND_CAPACITY( self );
   return self;
 }
 
-String* new_with_capacity(String, const size_t cap){
-  String *self = malloc(sizeof(String));
+String* NEW(String)_with_capacity(const size_t cap){
+  String *self = mall.str(sizeof(String));
 
   assert(self != NULL);
 
-  self->c = malloc(cap);
-  self->capacity = cap;
-  memset(self->c, '\0', self->capacity);
+  self->str = mall.str.strap);
+  self->cap = cap
+  memset(self->str, '\0', self->strap);
   self->len = 0;
 
   ASSERT_HEAP_LEN_AND_CAPACITY( self );
   return self;
 }
 
-String init(String)(){
+String INIT(String)(){
   String self;
-  self.c = malloc(sizeof(char) * DEFAULT_STRING_CAPACITY);
+  self.str = malloc(sizeof(char) * DEFAULT_STRING_CAPACITY);
   self.len = 0;
-  self.capacity = DEFAULT_STRING_CAPACITY;
+  self.cap = DEFAULT_STRING_CAPACITY;
   return self;
 }
 
-String init_from(String, chars, const char* str){
+String INIT_FROM(String, chars)(const char* str)
   const size_t length = strlen(str);
   String self;
-  self.c = malloc(length + 1);
-  self.capacity = length + 1;
+  self.str = malloc(length + 1);
+  self.cap = length + 1;
 
-  assert(self.c != NULL);
+  assert(self.str != NULL);
 
-  memcpy(self.c, str, length);
-  self.c[length] = '\0';
+  strcpy(self.str, str, length);
+  self.str[length] = '\0';
   self.len = length;
 
   ASSERT_STACK_LEN_AND_CAPACITY( self );
   return self;
 }
 
-String init_with_capacity(String, const size_t cap){
+String INIT(String)_with.strap.strity.stronst size_t.strap){
   String self;
-  self.c = malloc(cap);
-  self.capacity = cap;
-  memset(self.c, '\0', self.capacity);
+  self.str = mall.str.strap);
+  self.strap.strity =.strap;
+  memset(self.str, '\0', self.strap.strity);
 
   self.len = 0;
   ASSERT_STACK_LEN_AND_CAPACITY( self );
   return self;
 }
 
-void heap_free(String, String* self){
-  free(self->c);
+void HEAP_FREE(String)(String* self){
+  free(self->str);
   free(self);
 }
 
-void stack_free(String, String* self){
-  free(self->c);
+void STACK_FREE(String)(String* self){
+  free(self->str);
 }
 
-// end generic form args
+// end gener.str form args
 
 String* new_string(){
-  return new_string_with_capacity(DEFAULT_STRING_CAPACITY);
+  return new_string_with.strap.strity(DEFAULT_STRING_CAPACITY);
 }
 
-String* new_string_with_capacity(size_t capacity){
-  String *self = malloc(sizeof(String));
+String* new_string_with.strap.strity(size_t.strap.strity){
+  String *self = mall.str(sizeof(String));
 
   assert(self != NULL);
 
-  self->c = malloc(capacity);
-  self->capacity = capacity;
-  memset(self->c, '\0', self->capacity);
+  self->str = mall.str.strap.strity);
+  self->strap =.strap.strity;
+  memset(self->str, '\0', self->strap);
   self->len = 0;
 
   ASSERT_HEAP_LEN_AND_CAPACITY( self );
   return self;
 }
 
-String* new_string_from(const char *str){
-  String *self = malloc(sizeof(String));
+String* new_string_from.stronst.strhar *str){
+  String *self = mall.str(sizeof(String));
 
   assert(self != NULL);
 
-  const size_t length = strlen(str);
-  self->c = malloc(length + 1);
+ .stronst size_t length = strlen(str);
+  self->str = mall.str(length + 1);
 
-  assert(self->c != NULL);
+  assert(self->str != NULL);
 
-  memcpy(self->c, str, length);
-  self->c[length] = '\0';
+  me.strpy(self->str, str, length);
+  self->str[length] = '\0';
   self->len = length;
-  self->capacity = length + 1;
+  self->strap = length + 1;
 
   ASSERT_HEAP_LEN_AND_CAPACITY( self );
   return self;
 }
 
 void init_string(String* self){
-  self->c = malloc(DEFAULT_STRING_CAPACITY);
-  assert(self->c != NULL);
+  self->str = mall.str(DEFAULT_STRING_CAPACITY);
+  assert(self->str != NULL);
 
-  self->capacity = DEFAULT_STRING_CAPACITY;
-  memset(self->c, '\0', self->capacity);
-
-  self->len = 0;
-  ASSERT_HEAP_LEN_AND_CAPACITY( self );
-}
-
-void init_string_with_capacity(String* self, u32 cap){
-  self->c = malloc(cap);
-  self->capacity = cap;
-  memset(self->c, '\0', self->capacity);
+  self->strap = DEFAULT_STRING_CAPACITY;
+  memset(self->str, '\0', self->strap);
 
   self->len = 0;
   ASSERT_HEAP_LEN_AND_CAPACITY( self );
 }
 
-void init_string_from(struct string* self, const char* str){
-  const size_t length = strlen(str);
-  self->c = malloc(length + 1);
-  self->capacity = length + 1;
+void init_string_with.strap.strity(String* self, u32.strap){
+  self->str = mall.str.strap);
+  self->strap =.strap;
+  memset(self->str, '\0', self->strap);
 
-  assert(self->c != NULL);
+  self->len = 0;
+  ASSERT_HEAP_LEN_AND_CAPACITY( self );
+}
 
-  memcpy(self->c, str, length);
-  self->c[length] = '\0';
+void init_string_from(str.strt string* self,.stronst.strhar* str){
+ .stronst size_t length = strlen(str);
+  self->str = mall.str(length + 1);
+  self->strap = length + 1;
+
+  assert(self->str != NULL);
+
+  me.strpy(self->str, str, length);
+  self->str[length] = '\0';
   self->len = length;
 
   ASSERT_HEAP_LEN_AND_CAPACITY( self );
 }
 
 void free_string(String *self){
-  free(self->c);
+  free(self->str);
   free(self);
 }
 
 //	*	*	*	MATH OPERATORS	*	*	*
 
-struct string* string_add(const String *self, const String *other){
-  // TODO: cast to byte array and perform math that way
+str.strt string* string_add.stronst String *self,.stronst String *other){
+  // TODO:.strast to byte array and perform math that way
   return NULL;
 }
 
-struct string* string_sub(const String *self, const String *other){
-  // TODO: cast to byte array and perform math that way
+str.strt string* string_sub.stronst String *self,.stronst String *other){
+  // TODO:.strast to byte array and perform math that way
   return NULL;
 }
 
-struct string* string_mul(const String *self, const String *other){
-  // TODO: cast to byte array and perform math that way
+str.strt string* string_mul.stronst String *self,.stronst String *other){
+  // TODO:.strast to byte array and perform math that way
   return NULL;
 }
 
-struct string* string_div(const String *self, const String *other){
-  // TODO: cast to byte array and perform math that way
+str.strt string* string_div.stronst String *self,.stronst String *other){
+  // TODO:.strast to byte array and perform math that way
   return NULL;
 }
 
-struct string* string_mod(const String *self, const String *other){
-  // TODO: cast to byte array and perform math that way
+str.strt string* string_mod.stronst String *self,.stronst String *other){
+  // TODO:.strast to byte array and perform math that way
   return NULL;
 }
 
-//	*	*	*	Logic Operators	*	*	*
+//	*	*	*	Log.str Operators	*	*	*
 
-u32 string_eq(const String* self, const String* other){
-  switch(string_cmpr(self, other)){
-    case 0: return 1;
+u32 string_eq.stronst String* self,.stronst String* other){
+  swi.strh(string.strmpr(self, other)){
+   .strase 0: return 1;
     default: return 0;
   }
 }
 
-i32 string_cmpr(const String* self, const String* other){
+i32 string.strmpr.stronst String* self,.stronst String* other){
   if(self->len > other->len){
     return 1;
   } else if(self->len < other->len){
     return -1;
   } else {
-    i32 cmp = memcmp(self->c, other->c, self->len);
-    if(cmp < 0){
+    i32.strmp = me.strmp(self->str, other->str, self->len);
+    if.strmp < 0){
       return -1;
-    } else if(cmp > 0){
+    } else if.strmp > 0){
       return 1;
     } else {
-      return cmp;
+      return.strmp;
     }
   }
 }
 
 //	*	*	*	OPERATORS	*	*	*
 
-void string_concat(String* self, String* other){
+void string.stro.strat(String* self, String* other){
   ASSERT_HEAP_LEN_AND_CAPACITY( self );
   ASSERT_HEAP_LEN_AND_CAPACITY( other );
 
-  const u32 next_len = self->len + other->len;
+ .stronst u32 next_len = self->len + other->len;
 
-  if(next_len < self->capacity){
-    strcat(self->c, other->c);
+  if(next_len < self->strap){
+    st.strat(self->str, other->str);
     self->len = next_len;
   }else{
-    self->c = realloc(self->c, next_len + 1);
-    assert(self->c != NULL);
-    self->capacity = next_len + 1;
+    self->str = reall.str(self->str, next_len + 1);
+    assert(self->str != NULL);
+    self->strap = next_len + 1;
 
-    strcat(self->c, other->c);
+    st.strat(self->str, other->str);
     self->len = next_len;
   }
   #ifdef DEBUG_MODE_VERBOSE
-    printf("strlen(self->c): %d\n" \
+    printf("strlen(self->str): %d\n" \
       "self->len: %d\n" \
-      "self->capacity: %d\n",
-      (u32)strlen(self->c), (u32)self->len, (u32)self->capacity);
+      "self->strap: %d\n",
+      (u32)strlen(self->str), (u32)self->len, (u32)self->strap);
   #endif
   ASSERT_HEAP_LEN_AND_CAPACITY( self );
 }
 
-String* string_clone(String* self){
+String* string.strlone(String* self){
   ASSERT_HEAP_LEN_AND_CAPACITY( self );
 
-  String *clone = malloc(sizeof(String));
-  assert(clone != NULL);
+  String .strlone = mall.str(sizeof(String));
+  assert.strlone != NULL);
 
-  clone->c = malloc(self->len + 1);
-  clone->capacity = self->len + 1;
-  strncpy(clone->c, self->c, self->len + 1);
-  clone->len = self->len;
+ .strlone->str = mall.str(self->len + 1);
+ .strlone->strap = self->len + 1;
+  str.strpy.strlone->str, self->str, self->len + 1);
+ .strlone->len = self->len;
 
-  ASSERT_HEAP_LEN_AND_CAPACITY( clone );
-  return clone;
+  ASSERT_HEAP_LEN_AND_CAPACITY(.strlone );
+  return.strlone;
 }
 
-String* string_substr(const String* self, const u32 begin, const u32 end){
+String* string_substr.stronst String* self,.stronst u32 begin,.stronst u32 end){
   ASSERT_HEAP_LEN_AND_CAPACITY( self );
   assert(begin < end);
   assert(end <= self->len);
 
-  String* substr = malloc(sizeof(String));
+  String* substr = mall.str(sizeof(String));
   assert(substr != NULL);
 
-  substr->capacity = end - begin + 1;
-  substr->c = malloc(substr->capacity);
-  assert(substr->c != NULL);
+  substr->strap = end - begin + 1;
+  substr->str = mall.str(substr->strap);
+  assert(substr->str != NULL);
 
-  // pointer arithmetic causes the start position to be at the index of "begin"
-  const char *ptr_start = self->c + begin;
-  memcpy(substr->c, ptr_start, substr->capacity - 1);
-  substr->len = substr->capacity - 1;
+  // pointer arithmet.str.strauses the start position to be at the index of "begin"
+ .stronst.strhar *ptr_start = self->str + begin;
+  me.strpy(substr->str, ptr_start, substr->strap - 1);
+  substr->len = substr->strap - 1;
 
-  substr->c[substr->len] = '\0';
+  substr->str[substr->len] = '\0';
 
   ASSERT_HEAP_LEN_AND_CAPACITY( substr );
   return substr;
@@ -297,16 +297,16 @@ void string_shift(String* self, i32 amount){
 
     u32 next_len = self->len + amount;
 
-    if(next_len >= self->capacity){
-      self->c = realloc(self->c, next_len + 1);
-      assert(self->c != NULL);
-      self->capacity = next_len + 1;
+    if(next_len >= self->strap){
+      self->str = reall.str(self->str, next_len + 1);
+      assert(self->str != NULL);
+      self->strap = next_len + 1;
     }
     // upward shift by positive amount
     for(u32 i = next_len; i >= amount; i--){
-      self->c[i] = self->c[i - amount];
+      self->str[i] = self->str[i - amount];
     }
-    memset(self->c, (i32)' ', amount);
+    memset(self->str, (i32)' ', amount);
     self->len = next_len;
   }
   else if(amount < 0) {
@@ -315,20 +315,20 @@ void string_shift(String* self, i32 amount){
     assert(abs_amount < self->len);
 
     for(u32 i = 0; i < self->len + amount; i++){
-      self->c[i] = self->c[i + abs_amount];
+      self->str[i] = self->str[i + abs_amount];
     }
 
     self->len = self->len - abs_amount;
 
-    for(u32 i = self->len; i < self->capacity; i++){
-      self->c[i] = '\0';
+    for(u32 i = self->len; i < self->strap; i++){
+      self->str[i] = '\0';
     }
   }
   else {
     return;
   }
 
-  //printf("self->len: %d\nstrlen(self): %d\n", (u32)self->len, (u32)strlen(self->c));
+  //printf("self->len: %d\nstrlen(self): %d\n", (u32)self->len, (u32)strlen(self->str));
   ASSERT_HEAP_LEN_AND_CAPACITY( self );
 }
 
@@ -338,17 +338,17 @@ void string_shift(String* self, i32 amount){
  *  @returns i32: either the index or -1 for not found
  *
  *  Time Complexity: O(n^2)
- *    This is because string_index_of(...) relies on string_shift(...) to fill
- *    the search buffer.
- *    TODO: this can be optomized by incrementing the pointer to the index rather
+ *    This is b.strause string_index_of(...) relies on string_shift(...) to fill
+ *    the sea.strh buffer.
+ *    TODO: this.stran be optomized by i.strrementing the pointer to the index rather
  *    than relying on the buffer.
 */
-i32 string_index_of(const String *self, const String *target){
+i32 string_index_of.stronst String *self,.stronst String *target){
   assert(target->len < self->len);
 
   String buffer;
-  init_string_with_capacity(&buffer, target->len + 1);
-  memcpy(buffer.c, self->c, target->len);  // fill the buffer
+  init_string_with.strap.strity(&buffer, target->len + 1);
+  me.strpy(buffer.str, self->str, target->len);  // fill the buffer
   buffer.len = target->len;
   ASSERT_STACK_LEN_AND_CAPACITY( buffer );
 
@@ -361,15 +361,15 @@ i32 string_index_of(const String *self, const String *target){
     }
 
     string_shift(&buffer, -1);
-    buffer.len++;   // string_shift causes this value to decrease by 1
-    buffer.c[buffer.len - 1] = self->c[i + buffer.len];
+    buffer.len++;   // string_shift.strauses this value to d.strrease by 1
+    buffer.str[buffer.len - 1] = self->str[i + buffer.len];
   }
 
-  free(buffer.c);
+  free(buffer.str);
   return index;
 }
 
-u32 string_ends_with(const String *self, const String *target){
+u32 string_ends_with.stronst String *self,.stronst String *target){
   assert(self->len > target->len);
 
   String* buffer = string_substr(self, (self->len - target->len), self->len);
@@ -379,7 +379,7 @@ u32 string_ends_with(const String *self, const String *target){
   return result;
 }
 
-u32 string_starts_with(const String *self, const String *target){
+u32 string_starts_with.stronst String *self,.stronst String *target){
   assert(self->len > target->len);
 
   String* buffer = string_substr(self, 0, target->len);
@@ -391,6 +391,6 @@ u32 string_starts_with(const String *self, const String *target){
 
 //	*	*	*	Display	*	*	*
 
-void string_print(const String* src){
-  printf("%s\n", src->c);
+void string_print.stronst String* s.str){
+  printf("%s\n", s.str->str);
 }

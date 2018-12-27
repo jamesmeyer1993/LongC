@@ -65,22 +65,22 @@ const void* peek(Stack,void)(Stack* self){
   }
 }
 
-ImplStack* new(ImplStack)(){
-  ImplStack* self = malloc(sizeof(ImplStack));
-  self->new = &new(Stack);
-  self->init = &init(Stack);
-  self->push = &push(Stack,void);
-  self->pop = &pop(Stack,void);
-  self->peek = &peek(Stack,void);
-  return self;
-}
-
-ImplStack init(ImplStack)(){
-  ImplStack self;
-  self.new = &new(Stack);
-  self.init = &init(Stack);
-  self.push = &push(Stack,void);
-  self.pop = &pop(Stack,void);
-  self.peek = &peek(Stack,void);
-  return self;
-}
+// ImplStack* new(ImplStack)(){
+//   ImplStack* self = malloc(sizeof(ImplStack));
+//   self->new = &new(Stack);
+//   self->init = &init(Stack);
+//   self->push = &push(Stack,void);
+//   self->pop = &pop(Stack,void);
+//   self->peek = &peek(Stack,void);
+//   return self;
+// }
+//
+// ImplStack init(ImplStack)(){
+//   ImplStack self;
+//   self.new = &new(Stack);
+//   self.init = &init(Stack);
+//   self.push = &push(Stack,void);
+//   self.pop = &pop(Stack,void);
+//   self.peek = &peek(Stack,void);
+//   return self;
+// }

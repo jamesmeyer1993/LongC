@@ -21,13 +21,13 @@ typedef struct stack {
   struct impl_stack* fn;
 } Stack;
 
-typedef struct impl_stack {
-  Stack* (*new)();
-  Stack (*init)();
-  void (*push)(struct stack*, const void*);
-  void* (*pop)(struct stack*);
-  const void* (*peek)(struct stack*);
-} ImplStack;
+// typedef struct impl_stack {
+//   Stack* (*new)();
+//   Stack (*init)();
+//   void (*push)(struct stack*, const void*);
+//   void* (*pop)(struct stack*);
+//   const void* (*peek)(struct stack*);
+// } ImplStack;
 
 Stack* new(Stack)();
 
@@ -39,9 +39,9 @@ void* pop(Stack,void)(Stack* self);
 
 const void* peek(Stack,void)(Stack* self);
 
-ImplStack* new(ImplStack)();
-
-ImplStack init(ImplStack)();
+// ImplStack* new(ImplStack)();
+//
+// ImplStack init(ImplStack)();
 
 /*
 #define push(T_SELF, SELF, T_ELEM, ELEM) T_ELEM##T_SELF##_push(SELF, ELEM)

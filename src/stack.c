@@ -45,7 +45,11 @@ void* pop(Stack,void)(Stack* self){
   else{
     void* e = NULL;
     memcpy(e, self->head->elem, sizeof(void*));
+
+    struct node* forget = self->head;
     self->head = self->head->next;
+    free(forget);
+
     self->len--;
     return e;
   }

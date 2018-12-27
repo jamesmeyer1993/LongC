@@ -14,7 +14,7 @@
   assert(STR.capacity >= strlen(STR.c) + 1)
 
 // generic form args
-String* new(String){
+String* new(String)(){
   return new_with_capacity(String, DEFAULT_STRING_CAPACITY);
 }
 
@@ -51,7 +51,7 @@ String* new_with_capacity(String, const size_t cap){
   return self;
 }
 
-String init(String){
+String init(String)(){
   String self;
   self.c = malloc(sizeof(char) * DEFAULT_STRING_CAPACITY);
   self.len = 0;

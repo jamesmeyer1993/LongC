@@ -12,7 +12,7 @@
 
 struct node {
   struct node* next;
-  void* elem;
+  const void* elem;
 };
 
 typedef struct stack {

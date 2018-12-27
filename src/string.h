@@ -16,13 +16,13 @@ struct string{
 typedef struct string String;
 
 // generic arg expansion
-String* new(String);
+String* new(String)();
 
 String* new_from(String, chars, const char* str);
 
 String* new_with_capacity(String, size_t cap);
 
-String init(String);
+String init(String)();
 
 String init_from(String, chars, const char* str);
 

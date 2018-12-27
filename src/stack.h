@@ -4,11 +4,11 @@
 #include <stdlib.h>
 #include "lang.h"
 
-#define push(T_SELF, T_ELEM) T_ELEM##T_SELF##_push
+#define PUSH(T_SELF, T_ELEM) T_ELEM##T_SELF##_push
 
-#define pop(T_SELF, T_ELEM) T_ELEM##T_SELF##_pop
+#define POP(T_SELF, T_ELEM) T_ELEM##T_SELF##_pop
 
-#define peek(T_SELF, T_ELEM) T_ELEM##T_SELF##_peek
+#define PEEK(T_SELF, T_ELEM) T_ELEM##T_SELF##_peek
 
 struct node {
   struct node* next;
@@ -21,27 +21,27 @@ typedef struct stack {
   struct impl_stack* fn;
 } Stack;
 
-// typedef struct impl_stack {
-//   Stack* (*new)();
-//   Stack (*init)();
-//   void (*push)(struct stack*, const void*);
-//   void* (*pop)(struct stack*);
-//   const void* (*peek)(struct stack*);
-// } ImplStack;
+typedef struct impl_stack {
+  Stack* (*new)();
+  Stack (*init)();
+  void (*push)(struct stack*, const void*);
+  void* (*pop)(struct stack*);
+  const void* (*peek)(struct stack*);
+} ImplStack;
 
 Stack* new(Stack)();
 
 Stack init(Stack)();
 
-void push(Stack,void)(Stack* self, const void* elem);
+void PUSH(Stack,void)(Stack* self, const void* elem);
 
-void* pop(Stack,void)(Stack* self);
+void* POP(Stack,void)(Stack* self);
 
-const void* peek(Stack,void)(Stack* self);
+const void* PEEK(Stack,void)(Stack* self);
 
-// ImplStack* new(ImplStack)();
-//
-// ImplStack init(ImplStack)();
+ImplStack* new(ImplStack)();
+
+ImplStack init(ImplStack)();
 
 /*
 #define push(T_SELF, SELF, T_ELEM, ELEM) T_ELEM##T_SELF##_push(SELF, ELEM)

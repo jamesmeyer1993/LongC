@@ -19,7 +19,7 @@ Stack init(Stack)(){
   return self;
 }
 
-void push(Stack,void)(Stack* self, const void* elem){
+void PUSH(Stack,void)(Stack* self, const void* elem){
 
   assert(elem != NULL);
 
@@ -37,7 +37,7 @@ void push(Stack,void)(Stack* self, const void* elem){
   }
 }
 
-void* pop(Stack,void)(Stack* self){
+void* POP(Stack,void)(Stack* self){
 
   if(self->head == NULL){
     return NULL;
@@ -55,7 +55,7 @@ void* pop(Stack,void)(Stack* self){
   }
 }
 
-const void* peek(Stack,void)(Stack* self){
+const void* PEEK(Stack,void)(Stack* self){
 
   if(self->head == NULL){
     return NULL;
@@ -65,22 +65,22 @@ const void* peek(Stack,void)(Stack* self){
   }
 }
 
-// ImplStack* new(ImplStack)(){
-//   ImplStack* self = malloc(sizeof(ImplStack));
-//   self->new = &new(Stack);
-//   self->init = &init(Stack);
-//   self->push = &push(Stack,void);
-//   self->pop = &pop(Stack,void);
-//   self->peek = &peek(Stack,void);
-//   return self;
-// }
-//
-// ImplStack init(ImplStack)(){
-//   ImplStack self;
-//   self.new = &new(Stack);
-//   self.init = &init(Stack);
-//   self.push = &push(Stack,void);
-//   self.pop = &pop(Stack,void);
-//   self.peek = &peek(Stack,void);
-//   return self;
-// }
+ImplStack* new(ImplStack)(){
+  ImplStack* self = malloc(sizeof(ImplStack));
+  // self->new = &new(Stack);
+  // self->init = &init(Stack);
+  self->push = &PUSH(Stack,void);
+  self->pop = &POP(Stack,void);
+  self->peek = &PEEK(Stack,void);
+  return self;
+}
+
+ImplStack init(ImplStack)(){
+  ImplStack self;
+  // self.new = &new(Stack);
+  // self.init = &init(Stack);
+  self.push = &PUSH(Stack,void);
+  self.pop = &POP(Stack,void);
+  self.peek = &PEEK(Stack,void);
+  return self;
+}

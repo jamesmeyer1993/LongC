@@ -5,6 +5,8 @@
 
 Stack* new(Stack)(){
   struct stack* self = malloc(sizeof(struct stack));
+  assert(self != NULL);
+
   self->len = 0;
   self->head = NULL;
   self->fn = NULL;
@@ -23,13 +25,18 @@ void PUSH(Stack,void)(Stack* self, const void* elem){
 
   assert(elem != NULL);
 
-  if(self->head == NULL){
-    struct node* n = malloc(sizeof(struct node));
-    n->elem = elem;
-    n->next = NULL;
+  if(self->head == NULL && self->len == 0){
+    self->head = malloc(sizeof(struct node));
+    assert(self->head != NULL);
+
+    self->head->elem = elem;
+    self->head->next = NULL;
     self->len++;
-  } else {
+  }
+  else {
     struct node* n = malloc(sizeof(struct node));
+    assert(n != NULL);
+
     n->elem = elem;
     n->next = self->head;
     self->head = n;
@@ -37,31 +44,29 @@ void PUSH(Stack,void)(Stack* self, const void* elem){
   }
 }
 
-void* POP(Stack,void)(Stack* self){
+struct node* POP(Stack,void)(Stack* self){
 
   if(self->head == NULL){
     return NULL;
   }
   else{
-    void* e = NULL;
-    memcpy(e, self->head->elem, sizeof(void*));
-
-    struct node* forget = self->head;
+    struct node* give = self->head;
     self->head = self->head->next;
-    free(forget);
+
+    assert(give != NULL);
 
     self->len--;
-    return e;
+    return give;
   }
 }
 
-const void* PEEK(Stack,void)(Stack* self){
+void* PEEK(Stack,void)(const Stack* self){
 
   if(self->head == NULL){
     return NULL;
   }
   else{
-    return self->head->elem;
+    return (void*)self->head->elem;
   }
 }
 

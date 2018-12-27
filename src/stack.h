@@ -26,18 +26,18 @@ typedef struct impl_stack {
   Stack (*init)();
   void (*push)(struct stack*,const void*);
   struct node* (*pop)(struct stack*);
-  void* (*peek)(struct stack*);
+  struct node* (*peek)(struct stack*);
 } ImplStack;
 
-Stack* new(Stack)();
+Stack* new(Stack)(ImplStack* methods);
 
-Stack init(Stack)();
+Stack init(Stack)(ImplStack* methods);
 
 void PUSH(Stack,void)(Stack* self, const void* elem);
 
 struct node* POP(Stack,void)(Stack* self);
 
-void* PEEK(Stack,void)(const Stack* self);
+struct node* PEEK(Stack,void)(const Stack* self);
 
 ImplStack* new(ImplStack)();
 

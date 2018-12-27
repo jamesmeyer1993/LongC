@@ -3,21 +3,21 @@
 #include <string.h>
 #include "stack.h"
 
-Stack* new(Stack)(){
+Stack* new(Stack)(ImplStack* methods){
   struct stack* self = malloc(sizeof(struct stack));
   assert(self != NULL);
 
   self->len = 0;
   self->head = NULL;
-  self->fn = NULL;
+  self->fn = methods;
   return self;
 }
 
-Stack init(Stack)(){
+Stack init(Stack)(ImplStack* methods){
   struct stack self;
   self.len = 0;
   self.head = NULL;
-  self.fn = NULL;
+  self.fn = methods;
   return self;
 }
 
@@ -51,22 +51,21 @@ struct node* POP(Stack,void)(Stack* self){
   }
   else{
     struct node* give = self->head;
+    assert(give != NULL && give->elem != NULL);
+
     self->head = self->head->next;
-
-    assert(give != NULL);
-
     self->len--;
     return give;
   }
 }
 
-void* PEEK(Stack,void)(const Stack* self){
+struct node* PEEK(Stack,void)(const Stack* self){
 
   if(self->head == NULL){
     return NULL;
   }
   else{
-    return (void*)self->head->elem;
+    return self->head;
   }
 }
 

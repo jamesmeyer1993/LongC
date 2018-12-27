@@ -1,5 +1,6 @@
 #include <assert.h>
 #include <stdlib.h>
+#include <string.h>
 #include "stack.h"
 
 Stack* new(Stack)(){
@@ -42,7 +43,8 @@ void* pop(Stack,void)(Stack* self){
     return NULL;
   }
   else{
-    void* e = self->head->elem;
+    void* e = NULL;
+    memcpy(e, self->head->elem, sizeof(void*));
     self->head = self->head->next;
     self->len--;
     return e;

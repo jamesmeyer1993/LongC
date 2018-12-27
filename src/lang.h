@@ -59,7 +59,7 @@ are equal */
 // new( T )
 //  @accepts type to be allocated on heap
 //  @returns pointer to type T allocated on heap
-#define new( T ) new_ ## T ## _()
+#define new( T ) new_ ## T
 
 // new_from(...)
 //  @accepts type to be allocated, type from, and source object
@@ -68,7 +68,7 @@ are equal */
 
 #define new_with_capacity( T , CAP ) new_ ## T ## _with_capacity_( CAP )
 
-#define init( T ) init_ ## T ## _()
+#define init( T ) init_ ## T
 
 #define init_from( T_SELF , T_SRC , SRC ) init_ ## T_SELF ## _from_ ## T_SRC ## _( SRC )
 

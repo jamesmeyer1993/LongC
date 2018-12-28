@@ -89,6 +89,7 @@ are equal */
   i32 CMPR( T )(const T* self, const T* other); \
   bool EQ( T )(const T* self, const T* other);
 
+/*
 #define LONGC_IMPL_H_( T ) \
   T* (*new)(); \
   T (*init)(); \
@@ -102,6 +103,7 @@ are equal */
   SELF->clone = &CLONE(T); \
   SELF->stack_free = &STACK_FREE(T); \
   SELF->heap_free = &HEAP_FREE(T);
+*/
 
 // new_from(...)
 //  @accepts type to be allocated, type from, and source object
@@ -114,6 +116,7 @@ are equal */
   T_SELF* NEW_FROM(T_SELF, T_SRC)(const T_SRC *src); \
   T_SELF INIT_FROM(T_SELF, T_SRC)(const T_SRC *src);
 
+/*
 #define FROM_IMPL_H_( T_SELF, T_SRC ) \
   T_SELF* (*new_from_##T_SRC)(const T_SRC*); \
   T_SELF (*init_from_##T_SRC)(const T_SRC*);
@@ -121,6 +124,7 @@ are equal */
 #define FROM_IMPL_C_( T_SELF, T_SRC, SELF ) \
   SELF->new_from_##T_SRC = &NEW_FROM(T_SELF , T_SRC); \
   SELF->init_from_##T_SRC = &INIT_FROM(T_SELF, T_SRC);
+*/
 
 #define CONTAINS( T ) T##_contains
 
@@ -144,6 +148,7 @@ are equal */
   bool STARTS_WITH(T)(const T* self, const T_OWNED* item); \
   bool ENDS_WITH(T)(const T* self, const T_OWNED* item);
 
+/*
 #define COLLECTION_IMPL_H_( T , T_OWNED ) \
   T* (*new_with_capacity)(const size_t); \
   T (*init_with_capacity)(const size_t); \
@@ -159,6 +164,7 @@ are equal */
   SELF->index_of = &INDEX_OF(T); \
   SELF->starts_with = &STARTS_WITH(T); \
   SELF->ends_with = &ENDS_WITH(T);
+*/
 
 // approx(type, self, other, degree)
 //  @returns 1 or 0 - true or false.

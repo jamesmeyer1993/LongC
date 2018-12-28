@@ -35,6 +35,7 @@ typedef struct string String;
 	String* SUBSTR( T )(const T* self, const u32 begin, const u32 end); \
 	void CONCAT( T )(T* self, T* other);
 
+/*
 #define STRING_IMPL_H_( T ) \
 	String* (*to_string)(T*); \
 	String* (*stringify)(T*, T*); \
@@ -46,12 +47,11 @@ typedef struct string String;
 	SELF->stringify = &STRINGIFY(T); \
 	SELF->substr = &SUBSTR(T); \
 	SELF->concat = &CONCAT(T);
+*/
 
 LONGC_TRAIT_H_(String)
 
 FROM_TRAIT_H_(String, char)
-// String* NEW_FROM(String, char)(const char *src);
-// String INIT_FROM(String, char)(const char *src);
 
 COLLECTION_TRAIT_H_(String, String)
 
@@ -62,11 +62,13 @@ STRING_TRAIT_H_(String)
 // TODO: include SHIFT from array.h
 void SHIFT(String)(String* self, i32 amount);
 
+/*
 typedef struct impl_string {
 	LONGC_IMPL_H_(String)
 	FROM_IMPL_H_(String, char)
 	COLLECTION_IMPL_H_(String,String)
 	STRING_IMPL_H_(String)
 } ImplString;
+*/
 
 #endif /* STRING_H_ */

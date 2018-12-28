@@ -3,21 +3,21 @@
 #include <string.h>
 #include "stack.h"
 
-Stack* NEW(Stack)(ImplStack* methods){
+Stack* NEW(Stack)(){
   struct stack* self = malloc(sizeof(struct stack));
   assert(self != NULL);
 
   self->len = 0;
   self->head = NULL;
-  self->fn = methods;
+  //self->fn = methods;
   return self;
 }
 
-Stack INIT(Stack)(ImplStack* methods){
+Stack INIT(Stack)(){
   struct stack self;
   self.len = 0;
   self.head = NULL;
-  self.fn = methods;
+  //self.fn = methods;
   return self;
 }
 
@@ -69,22 +69,22 @@ struct node* PEEK(Stack,void)(const Stack* self){
   }
 }
 
-ImplStack* NEW(ImplStack)(){
-  ImplStack* self = malloc(sizeof(ImplStack));
-  // self->NEW = &NEW(Stack);
-  // self->INIT = &INIT(Stack);
-  self->push = &PUSH(Stack,void);
-  self->pop = &POP(Stack,void);
-  self->peek = &PEEK(Stack,void);
-  return self;
-}
-
-ImplStack INIT(ImplStack)(){
-  ImplStack self;
-  // self.NEW = &NEW(Stack);
-  // self.INIT = &INIT(Stack);
-  self.push = &PUSH(Stack,void);
-  self.pop = &POP(Stack,void);
-  self.peek = &PEEK(Stack,void);
-  return self;
-}
+// ImplStack* NEW(ImplStack)(){
+//   ImplStack* self = malloc(sizeof(ImplStack));
+//   // self->NEW = &NEW(Stack);
+//   // self->INIT = &INIT(Stack);
+//   self->push = &PUSH(Stack,void);
+//   self->pop = &POP(Stack,void);
+//   self->peek = &PEEK(Stack,void);
+//   return self;
+// }
+//
+// ImplStack INIT(ImplStack)(){
+//   ImplStack self;
+//   // self.NEW = &NEW(Stack);
+//   // self.INIT = &INIT(Stack);
+//   self.push = &PUSH(Stack,void);
+//   self.pop = &POP(Stack,void);
+//   self.peek = &PEEK(Stack,void);
+//   return self;
+// }

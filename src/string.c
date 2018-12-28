@@ -91,7 +91,7 @@ void HEAP_FREE(String)(String* self){
   free(self);
 }
 
-void STACK_FREE(STRING)(String* self){
+void STACK_FREE(String)(String* self){
   free(self->str);
 }
 
@@ -281,25 +281,25 @@ bool STARTS_WITH(String)(const String *self, const String *target){
   return result;
 }
 
-ImplString INIT(ImplString)(){
-  ImplString self;
-  ImplString* ptr_self = &self;
+// ImplString INIT(ImplString)(){
+//   ImplString self;
+//   ImplString* ptr_self = &self;
+//
+//   LONGC_IMPL_C_(String, ptr_self)
+//   FROM_IMPL_C_(String, char, ptr_self)
+//   COLLECTION_IMPL_C_(String, ptr_self)
+//   STRING_IMPL_C_(String, ptr_self)
+//
+//   return self;
+// }
 
-  LONGC_IMPL_C_(String, ptr_self)
-  FROM_IMPL_C_(String, char, ptr_self)
-  COLLECTION_IMPL_C_(String, ptr_self)
-  STRING_IMPL_C_(String, ptr_self)
-
-  return self;
-}
-
-ImplString* NEW(ImplString)(){
-  ImplString* self = malloc(sizeof(ImplString));
-
-  LONGC_IMPL_C_(String, self)
-  FROM_IMPL_C_(String, char, self)
-  COLLECTION_IMPL_C_(String, self)
-  STRING_IMPL_C_(String, self)
-
-  return self;
-}
+// ImplString* NEW(ImplString)(){
+//   ImplString* self = malloc(sizeof(ImplString));
+//
+//   LONGC_IMPL_C_(String, self)
+//   FROM_IMPL_C_(String, char, self)
+//   COLLECTION_IMPL_C_(String, self)
+//   STRING_IMPL_C_(String, self)
+//
+//   return self;
+// }

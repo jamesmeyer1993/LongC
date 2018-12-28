@@ -61,18 +61,7 @@ are equal */
 //  @returns pointer to type T allocated on heap
 #define NEW( T ) new_##T
 
-// new_from(...)
-//  @accepts type to be allocated, type from, and source object
-//  @returns pointer to type T_SELF allocated on heap
-#define NEW_FROM( T_SELF , T_SRC ) new_##T##_from_##T_SRC
-
-//#define NEW_WITH_CAPACITY( T , CAP ) new_ ## T ## _with_capacity_( CAP )
-
 #define INIT( T ) init_##T
-
-#define INIT_FROM( T_SELF , T_SRC) init_##T_SELF##_from_##T_SRC
-
-//#define INIT_WITH_CAPACITY( T , CAP ) init_ ## T ## _with_capacity_( CAP )
 
 // clone(...)
 //  @accepts type T, which is the type of SELF.
@@ -88,6 +77,48 @@ are equal */
 
 // This is the shorthand for calling the equals function
 #define EQ( T ) T##_eq
+
+#define LONGC_TRIAT_H_( T ) \
+  T* NEW( T )(); \
+  T INIT( T )(); \
+  T* CLONE( T )(T* self); \
+  T HEAP_FREE( T )(T* self); \
+  T STACK_FREE( T )(T* self); \
+  T* CMPR( T )(T* self, T* other); \
+  T* EQ( T )(T* self, T* other);
+
+// new_from(...)
+//  @accepts type to be allocated, type from, and source object
+//  @returns pointer to type T_SELF allocated on heap
+#define NEW_FROM( T_SELF , T_SRC ) new_##T##_from_##T_SRC
+
+#define INIT_FROM( T_SELF , T_SRC ) init_##T##_from_#T_SRC
+
+#define FROM_TRAIT_H_( T_SELF, T_MACRO , T_ACTUAL) \
+  T_SELF* NEW_FROM( T_SELF , T_SRC)(T_ACTUAL src); \
+  T_SELF* INIT_FROM( T_SELF , T_SRC)(T_ACTUAL src);
+
+// #define NEW_WITH_CAPACITY( T ) new_##T##_with_capacity(size_t CAP)
+//
+// #define INIT_WITH_CAPACITY( T , CAP ) init_##T##_with_capacity(size_t CAP )
+
+#define CONTAINS( T ) T##_contains
+
+#define INDEX_OF( T ) T##_index_of
+
+#define STARTS_WITH( T ) T##_ends_with
+
+#define ENDS_WITH( T ) T##_ends_with
+
+#define RESIZEABLE( T )
+
+#define COLLECTION_TRIAT_( T , INT_CAP , T_OWNED ) \
+  NEW(T)_with_capacity(size_t INT_CAP); \
+  INIT(T)_with_capacity(size_t INT_CAP); \
+  CONTAINS(T)(T* self, T_OWNED* item); \
+  INDEX_OF(T)(T* self, T_OWNED* item); \
+  STARTS_WITH(T)(T* self, T_OWNED* item); \
+  ENDS_WITH(T)(T* self, T_OWNED* item);
 
 // approx(type, self, other, degree)
 //  @returns 1 or 0 - true or false.
@@ -109,6 +140,6 @@ are equal */
       new_string_from("hello WORLD!"), 50%)
       -> return true because the strings share 50% of the same elements
 */
-#define approx( T ) T##_approx
+#define APPROX( T ) T##_approx
 
 #endif /* _LANG_H_ */

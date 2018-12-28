@@ -29,9 +29,9 @@ typedef struct impl_stack {
   struct node* (*peek)(struct stack*);
 } ImplStack;
 
-Stack* new(Stack)(ImplStack* methods);
+Stack* NEW(Stack)(ImplStack* methods);
 
-Stack init(Stack)(ImplStack* methods);
+Stack INIT(Stack)(ImplStack* methods);
 
 void PUSH(Stack,void)(Stack* self, const void* elem);
 
@@ -39,8 +39,8 @@ struct node* POP(Stack,void)(Stack* self);
 
 struct node* PEEK(Stack,void)(const Stack* self);
 
-ImplStack* new(ImplStack)();
+ImplStack* NEW(ImplStack)();
 
-ImplStack init(ImplStack)();
+ImplStack INIT(ImplStack)();
 
 #endif /* _STACK_H_ */

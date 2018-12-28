@@ -54,7 +54,9 @@ DEF_TUPLES_LANG(f64)
 /* Done --> we've typedef'd (24^2)=576 typle types. Out of 34 them, both types
 are equal */
 
-//    *   *   * Generic Functions *   *   *
+//  *   *   *   *                          *    *   *
+//    *   *   * Generic Functions and Traits  *   *   *
+//  *   *   *   *                          *    *   *
 
 // new( T )
 //  @accepts type to be allocated on heap
@@ -78,47 +80,47 @@ are equal */
 // This is the shorthand for calling the equals function
 #define EQ( T ) T##_eq
 
-#define LONGC_TRIAT_H_( T ) \
+#define LONGC_TRAIT_H_( T ) \
   T* NEW( T )(); \
   T INIT( T )(); \
   T* CLONE( T )(T* self); \
   T HEAP_FREE( T )(T* self); \
   T STACK_FREE( T )(T* self); \
-  T* CMPR( T )(T* self, T* other); \
-  T* EQ( T )(T* self, T* other);
+  i32 CMPR( T )(T* self, T* other); \
+  bool EQ( T )(T* self, T* other);
 
 // new_from(...)
 //  @accepts type to be allocated, type from, and source object
 //  @returns pointer to type T_SELF allocated on heap
 #define NEW_FROM( T_SELF , T_SRC ) new_##T##_from_##T_SRC
 
-#define INIT_FROM( T_SELF , T_SRC ) init_##T##_from_#T_SRC
+#define INIT_FROM( T_SELF , T_SRC ) init_##T##_from_##T_SRC
 
 #define FROM_TRAIT_H_( T_SELF, T_MACRO , T_ACTUAL) \
   T_SELF* NEW_FROM( T_SELF , T_SRC)(T_ACTUAL src); \
   T_SELF* INIT_FROM( T_SELF , T_SRC)(T_ACTUAL src);
 
-// #define NEW_WITH_CAPACITY( T ) new_##T##_with_capacity(size_t CAP)
-//
-// #define INIT_WITH_CAPACITY( T , CAP ) init_##T##_with_capacity(size_t CAP )
-
 #define CONTAINS( T ) T##_contains
 
 #define INDEX_OF( T ) T##_index_of
 
-#define STARTS_WITH( T ) T##_ends_with
+#define STARTS_WITH( T ) T##_starts_with
 
 #define ENDS_WITH( T ) T##_ends_with
 
-#define RESIZEABLE( T )
+#define RESIZE( T ) T##is_resize
 
-#define COLLECTION_TRIAT_( T , INT_CAP , T_OWNED ) \
-  NEW(T)_with_capacity(size_t INT_CAP); \
-  INIT(T)_with_capacity(size_t INT_CAP); \
-  CONTAINS(T)(T* self, T_OWNED* item); \
-  INDEX_OF(T)(T* self, T_OWNED* item); \
-  STARTS_WITH(T)(T* self, T_OWNED* item); \
-  ENDS_WITH(T)(T* self, T_OWNED* item);
+#define NEW_WITH_CAPACITY( T ) new_##T##_with_capacity
+
+#define INIT_WITH_CAPACITY( T ) init_##T##_with_capacity
+
+#define COLLECTION_TRAIT_( T , INT_CAP , T_OWNED ) \
+  T* NEW_WITH_CAPACITY(T)(size_t INT_CAP); \
+  T INIT_WITH_CAPACITY(T)(size_t INT_CAP); \
+  bool CONTAINS(T)(T* self, T* item); \
+  u32 INDEX_OF(T)(T* self, T* item); \
+  bool STARTS_WITH(T)(T* self, T* item); \
+  bool ENDS_WITH(T)(T* self, T* item);
 
 // approx(type, self, other, degree)
 //  @returns 1 or 0 - true or false.

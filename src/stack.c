@@ -3,7 +3,7 @@
 #include <string.h>
 #include "stack.h"
 
-Stack* new(Stack)(ImplStack* methods){
+Stack* NEW(Stack)(ImplStack* methods){
   struct stack* self = malloc(sizeof(struct stack));
   assert(self != NULL);
 
@@ -13,7 +13,7 @@ Stack* new(Stack)(ImplStack* methods){
   return self;
 }
 
-Stack init(Stack)(ImplStack* methods){
+Stack INIT(Stack)(ImplStack* methods){
   struct stack self;
   self.len = 0;
   self.head = NULL;
@@ -69,20 +69,20 @@ struct node* PEEK(Stack,void)(const Stack* self){
   }
 }
 
-ImplStack* new(ImplStack)(){
+ImplStack* NEW(ImplStack)(){
   ImplStack* self = malloc(sizeof(ImplStack));
-  // self->new = &new(Stack);
-  // self->init = &init(Stack);
+  // self->NEW = &NEW(Stack);
+  // self->INIT = &INIT(Stack);
   self->push = &PUSH(Stack,void);
   self->pop = &POP(Stack,void);
   self->peek = &PEEK(Stack,void);
   return self;
 }
 
-ImplStack init(ImplStack)(){
+ImplStack INIT(ImplStack)(){
   ImplStack self;
-  // self.new = &new(Stack);
-  // self.init = &init(Stack);
+  // self.NEW = &NEW(Stack);
+  // self.INIT = &INIT(Stack);
   self.push = &PUSH(Stack,void);
   self.pop = &POP(Stack,void);
   self.peek = &PEEK(Stack,void);

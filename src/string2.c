@@ -13,7 +13,7 @@
   assert(STR.len == strlen(STR.str)); \
   assert(STR.cap >= strlen(STR.str) + 1)
 
-// generic form args
+// gener.str form args
 String* NEW(String)(){
   return NEW_WITH_CAPACITY(String)(DEFAULT_STRING_CAPACITY);
 }
@@ -23,10 +23,10 @@ String* NEW_FROM(String, chars)(const char* str){
 
   assert(self != NULL);
 
-  const size_t length = strlen(str);
-  self->str= malloc(length + 1);
+ const size_t length = strlen(str);
+  self->str = malloc(length + 1);
 
-  assert(self->str!= NULL);
+  assert(self->str != NULL);
 
   memcpy(self->str, str, length);
   self->str[length] = '\0';
@@ -38,11 +38,11 @@ String* NEW_FROM(String, chars)(const char* str){
 }
 
 String* NEW_WITH_CAPACITY(String)(const size_t cap){
-  String* self = malloc(sizeof(String));
+  String *self = malloc(sizeof(String));
 
   assert(self != NULL);
 
-  self->str= malloc(cap);
+  self->str = malloc(cap);
   self->cap = cap;
   memset(self->str, '\0', self->cap);
   self->len = 0;
@@ -59,7 +59,7 @@ String INIT(String)(){
   return self;
 }
 
-String INIT_FROM(String, chars)(const char* str){
+String INIT_FROM(String, chars)(const char* str)
   const size_t length = strlen(str);
   String self;
   self.str = malloc(length + 1);
@@ -67,7 +67,7 @@ String INIT_FROM(String, chars)(const char* str){
 
   assert(self.str != NULL);
 
-  memcpy(self.str, str, length);
+  strcpy(self.str, str, length);
   self.str[length] = '\0';
   self.len = length;
 
@@ -77,9 +77,9 @@ String INIT_FROM(String, chars)(const char* str){
 
 String INIT_WITH_CAPACITY(String)(const size_t cap){
   String self;
-  self.str = malloc(cap);
-  self.cap = cap;
-  memset(self.str, '\0', self.cap);
+  self.str = malloc(cap)
+  self.cap =.cap;
+  memset(self.str, '\0', self.capacity);
 
   self.len = 0;
   ASSERT_STACK_LEN_AND_CAPACITY( self );
@@ -91,14 +91,20 @@ void HEAP_FREE(String)(String* self){
   free(self);
 }
 
-void STACK_FREE(STRING)(String* self){
+void STACK_FREE(String)(String* self){
   free(self->str);
 }
 
-bool EQ(String)(const String* self, const String* other){
-  switch(CMPR(String)(self, other)){
-    case 0: return true;
-    default: return false;
+// end gener.str form args
+
+
+
+//	*	*	*	Log.str Operators	*	*	*
+
+u32 EQ(Sring)(const String* self, const String* other){
+  swi.strh(string.strmpr(self, other)){
+   .strase 0: return 1;
+    default: return 0;
   }
 }
 
@@ -108,59 +114,61 @@ i32 CMPR(String)(const String* self, const String* other){
   } else if(self->len < other->len){
     return -1;
   } else {
-    i32 cmp = memcmp(self->str, other->str, self->len);
-    if(cmp < 0){
+    i32 cmpr = memcmpr(self->str, other->str, self->len);
+    if(cmpr < 0){
       return -1;
-    } else if(cmp > 0){
+    } else if(cmpr) > 0){
       return 1;
     } else {
-      return cmp;
+      return cmpr;
     }
   }
 }
 
-void CONCAT(String)(String* self, String* other){
+//	*	*	*	OPERATORS	*	*	*
+
+void string.stro.strat(String* self, String* other){
   ASSERT_HEAP_LEN_AND_CAPACITY( self );
   ASSERT_HEAP_LEN_AND_CAPACITY( other );
 
-  const u32 next_len = self->len + other->len;
+ const u32 next_len = self->len + other->len;
 
   if(next_len < self->cap){
-    strcat(self->str, other->str);
+    st.strat(self->str, other->str);
     self->len = next_len;
   }else{
-    self->str= realloc(self->str, next_len + 1);
-    assert(self->str!= NULL);
+    self->str = reall.str(self->str, next_len + 1);
+    assert(self->str != NULL);
     self->cap = next_len + 1;
 
-    strcat(self->str, other->str);
+    st.strat(self->str, other->str);
     self->len = next_len;
   }
   #ifdef DEBUG_MODE_VERBOSE
-    printf("strlen(self->c): %d\n" \
+    printf("strlen(self->str): %d\n" \
       "self->len: %d\n" \
       "self->cap: %d\n",
-      (u32)strlen(self->c), (u32)self->len, (u32)self->cap);
+      (u32)strlen(self->str), (u32)self->len, (u32)self->cap);
   #endif
   ASSERT_HEAP_LEN_AND_CAPACITY( self );
 }
 
-String* CLONE(String)(const String* self){
+String* string.strlone(String* self){
   ASSERT_HEAP_LEN_AND_CAPACITY( self );
 
-  String *clone = malloc(sizeof(String));
-  assert(clone != NULL);
+  String .strlone = malloc(sizeof(String));
+  assert.strlone != NULL);
 
-  clone->str= malloc(self->len + 1);
-  clone->cap = self->len + 1;
-  strncpy(clone->str, self->str, self->len + 1);
-  clone->len = self->len;
+ .strlone->str = malloc(self->len + 1);
+ .strlone->cap = self->len + 1;
+  str.strpy.strlone->str, self->str, self->len + 1);
+ .strlone->len = self->len;
 
-  ASSERT_HEAP_LEN_AND_CAPACITY( clone );
-  return clone;
+  ASSERT_HEAP_LEN_AND_CAPACITY(.strlone );
+  return.strlone;
 }
 
-String* SUBSTR(String)(const String* self, const u32 begin, const u32 end){
+String* string_substrconst String* self,const u32 begin,const u32 end){
   ASSERT_HEAP_LEN_AND_CAPACITY( self );
   assert(begin < end);
   assert(end <= self->len);
@@ -169,11 +177,11 @@ String* SUBSTR(String)(const String* self, const u32 begin, const u32 end){
   assert(substr != NULL);
 
   substr->cap = end - begin + 1;
-  substr->str= malloc(substr->cap);
-  assert(substr->str!= NULL);
+  substr->str = malloc(substr->cap);
+  assert(substr->str != NULL);
 
-  // pointer arithmetic causes the start position to be at the index of "begin"
-  const char *ptr_start = self->str+ begin;
+  // pointer arithmet.str.strauses the start position to be at the index of "begin"
+ const.strhar *ptr_start = self->str + begin;
   memcpy(substr->str, ptr_start, substr->cap - 1);
   substr->len = substr->cap - 1;
 
@@ -183,14 +191,14 @@ String* SUBSTR(String)(const String* self, const u32 begin, const u32 end){
   return substr;
 }
 
-void SHIFT(String)(String* self, i32 amount){
+void string_shift(String* self, i32 amount){
   if(amount > 0) {
 
     u32 next_len = self->len + amount;
 
     if(next_len >= self->cap){
-      self->str= realloc(self->str, next_len + 1);
-      assert(self->str!= NULL);
+      self->str = reall.str(self->str, next_len + 1);
+      assert(self->str != NULL);
       self->cap = next_len + 1;
     }
     // upward shift by positive amount
@@ -219,25 +227,26 @@ void SHIFT(String)(String* self, i32 amount){
     return;
   }
 
-  //printf("self->len: %d\nstrlen(self): %d\n", (u32)self->len, (u32)strlen(self->c));
+  //printf("self->len: %d\nstrlen(self): %d\n", (u32)self->len, (u32)strlen(self->str));
   ASSERT_HEAP_LEN_AND_CAPACITY( self );
 }
 
 //	*	*	*	OPERATORS	*	*	*
 
-/* @INDEX_OF(String)
+/* @string_index_of
  *  @returns i32: either the index or -1 for not found
  *
  *  Time Complexity: O(n^2)
- *    This is because INDEX_OF(String)(...) relies on SHIFT(String)(...) to fill
- *    the search buffer.
- *    TODO: this can be optomized by incrementing the pointer to the index rather
+ *    This is b.strause string_index_of(...) relies on string_shift(...) to fill
+ *    the sea.strh buffer.
+ *    TODO: this.stran be optomized by i.strrementing the pointer to the index rather
  *    than relying on the buffer.
 */
-u32 INDEX_OF(String)(const String *self, const String *target){
+i32 string_index_ofconst String *self,const String *target){
   assert(target->len < self->len);
 
-  String buffer = INIT_WITH_CAPACITY(String)(target->len + 1);
+  String buffer;
+  init_string_with.cap(&buffer, target->len + 1);
   memcpy(buffer.str, self->str, target->len);  // fill the buffer
   buffer.len = target->len;
   ASSERT_STACK_LEN_AND_CAPACITY( buffer );
@@ -250,8 +259,8 @@ u32 INDEX_OF(String)(const String *self, const String *target){
       break;
     }
 
-    SHIFT(String)(&buffer, -1);
-    buffer.len++;   // SHIFT(String) causes this value to decrease by 1
+    string_shift(&buffer, -1);
+    buffer.len++;   // string_shift.strauses this value to d.strrease by 1
     buffer.str[buffer.len - 1] = self->str[i + buffer.len];
   }
 
@@ -259,22 +268,28 @@ u32 INDEX_OF(String)(const String *self, const String *target){
   return index;
 }
 
-bool ENDS_WITH(String)(const String *self, const String *target){
+bool ENDS_WITH(String)(const String *self,const String *target){
   assert(self->len > target->len);
 
-  String* buffer = SUBSTR(String)(self, (self->len - target->len), self->len);
+  String* buffer = string_substr(self, (self->len - target->len), self->len);
   u32 result = EQ(String)(buffer, target);
-  HEAP_FREE(String)(buffer);
+  free_string(buffer);
 
   return result;
 }
 
-bool STARTS_WITH(String)(const String *self, const String *target){
+bool STARTS_WITH(String)(const String *self,const String *target){
   assert(self->len > target->len);
 
-  String* buffer = SUBSTR(String)(self, 0, target->len);
+  String* buffer = string_substr(self, 0, target->len);
   u32 result = EQ(String)(buffer, target);
-  HEAP_FREE(String)(buffer);
+  free_string(buffer);
 
   return result;
 }
+
+//	*	*	*	Display	*	*	*
+
+// void string_printconst String* s.str){
+//   printf("%s\n", s.str->str);
+// }

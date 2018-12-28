@@ -1,0 +1,3 @@
+'src/lang.h' -> 'bin/lang.h'
+'src/stack.h' -> 'bin/stack.h'
+'src/string.h' -> 'bin/string.h'

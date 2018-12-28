@@ -15,27 +15,6 @@ struct string{
 
 typedef struct string String;
 
-// Generic Functions of the String Type
-
-// generic arg expansion
-String* NEW(String)();
-
-String* NEW_FROM(String, chars)(const char* str);
-
-String* NEW(String)_with_capacity(size_t cap);
-
-String INIT(String)();
-
-String INIT_FROM(String, chars)(const char* str);
-
-String INIT(String)_with_capacity(size_t cap);
-
-String CLONE(String)(const String* self);
-
-void HEAP_FREE(String)(String* self);
-
-void STACK_FREE(String)(String* self);
-
 // ## to_String(...)
 //	@accepts the type of self, T and SELF
 //	@returns a string representation of an object
@@ -50,71 +29,38 @@ void STACK_FREE(String)(String* self);
 
 #define CONCAT( T ) T##_concat
 
-#define STRING_TRAITS_H_( T ) \
-	STRINGIFY( T )(T* self, T* other ); \
-	SUBSTR( T )(T* self, const u32 begin, const u32 end); \
-	CONCAT( T )(T* self, T* other); 
+#define STRING_TRAIT_H_( T ) \
+	String* TO_STRING( T )(T* self); \
+	String* STRINGIFY( T )(T* self, T* other ); \
+	String* SUBSTR( T )(const T* self, const u32 begin, const u32 end); \
+	void CONCAT( T )(T* self, T* other);
 
-//	*	*	*	Logic Operators	*	*	*
+//LONGC_TRAIT_H_(String)
+String* NEW(String)();
+String INIT(String)();
+String* CLONE(String)(const String* self);
+void HEAP_FREE(String)(String* self);
+void STACK_FREE(String)(String* self);
+i32 CMPR(String)(const String* self, const String* other);
+bool EQ(String)(const String* self, const String* other);
 
-u32 EQ(String)(String* self, String* other);
-// u32 string_eq(const String *self, const String *other);
-
-i32 CMPR(String)(String* self, String* other);
-// i32 string_cmpr(const String *self, const String *other);
-
-f64 APPROX(String)(String* self, String* other);
-
-//	*	*	*	OPERATORS	*	*	*
-
-void CONCAT(String)(String* self, String* other);
-// void string_concat(String* self, String* other);
-
-String* CLONE(String)(String* self);
-// String* string_clone(String* self);
-
+//STRING_TRAIT_H_(String)
+String* TO_STRING(String)(String* self);
+String* STRINGIFY(String)(const String* self);
 String* SUBSTR(String)(const String* self, const u32 begin, const u32 end);
-// String* string_substr(const String* self, const u32 begin, const u32 end);
+void CONCAT(String)(String* self, String* other);
 
-// void string_shift(String* self, i32 amount);
+//#define COLLECTION_TRAIT_( T , INT_CAP , T_OWNED )
+String* NEW_WITH_CAPACITY(String)(const size_t cap);
+String INIT_WITH_CAPACITY(String)(const size_t cap);
+//bool CONTAINS(T)(T* self, T_OWNED* item);
+u32 INDEX_OF(String)(const String* self, const String* item);
+bool STARTS_WITH(String)(const String* self, const String* item);
+bool ENDS_WITH(String)(const String* self, const String* item);
 
-//	*	*	*	OPERATORS	*	*	*
+#define SHIFT(T) T##_shift
 
-// i32 string_index_of(const String* self, const String* target);
-//
-// u32 string_ends_with(const String* self, const String* target);
-//
-// u32 string_starts_with(const String* self, const String* target);
-
-//	*	*	*	Display	*	*	*
-
-// void string_print(const String* self);
-
-
-// String* new_string();
-//
-// String* new_string_with_capacity(const size_t capacity);
-//
-// String* new_string_from(const char *str);
-//
-// void init_string(String* self);
-//
-// void init_string_from(String* self, const char* str);
-//
-// void free_string(String *self);
-
-//	*	*	*	MATH OPERATORS	*	*	*
-
-// String* string_add(const String *self, const String *other);
-//
-// String* string_sub(const String *self, const String *other);
-//
-// String* string_mul(const String *self, const String *other);
-//
-// String* string_div(const String *self, const String *other);
-//
-// String* string_mod(const String *self, const String *other);
-//
-// String* string_xor(const String *self, const String *other);
+// TODO: include SHIFT from array.h
+void SHIFT(String)(String* self, i32 amount);
 
 #endif /* STRING_H_ */

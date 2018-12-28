@@ -41,38 +41,27 @@ typedef struct string String;
 	String* (*substr)(const T*, const u32, const u32); \
 	void (*concat)(T*, T*);
 
-struct impl_string {
-	LONGC_IMPL_H_(String)
-	COLLECTION_IMPL_H_(String,String)
-	STRING_IMPL_H_(String)
-};
+#define STRING_IMPL_C_( T , SELF ) \
+	SELF->to_string = &TO_STRING(T); \
+	SELF->stringify = &STRINGIFY(T); \
+	SELF->substr = &SUBSTR(T); \
+	SELF->concat = &CONCAT(T);
 
 LONGC_TRAIT_H_(String)
-// String* NEW(String)();
-// String INIT(String)();
-// String* CLONE(String)(const String* self);
-// void HEAP_FREE(String)(String* self);
-// void STACK_FREE(String)(String* self);
-// i32 CMPR(String)(const String* self, const String* other);
-// bool EQ(String)(const String* self, const String* other);
 
 COLLECTION_TRAIT_H_(String, String)
-// String* NEW_WITH_CAPACITY(String)(const size_t cap);
-// String INIT_WITH_CAPACITY(String)(const size_t cap);
-// bool CONTAINS(T)(T* self, T_OWNED* item);
-// u32 INDEX_OF(String)(const String* self, const String* item);
-// bool STARTS_WITH(String)(const String* self, const String* item);
-// bool ENDS_WITH(String)(const String* self, const String* item);
 
 STRING_TRAIT_H_(String)
-// String* TO_STRING(String)(String* self);
-// String* STRINGIFY(String)(const String* self);
-// String* SUBSTR(String)(const String* self, const u32 begin, const u32 end);
-// void CONCAT(String)(String* self, String* other);
 
 #define SHIFT(T) T##_shift
 
 // TODO: include SHIFT from array.h
 void SHIFT(String)(String* self, i32 amount);
+
+typedef struct impl_string {
+	LONGC_IMPL_H_(String)
+	COLLECTION_IMPL_H_(String,String)
+	STRING_IMPL_H_(String)
+} ImplString;
 
 #endif /* STRING_H_ */

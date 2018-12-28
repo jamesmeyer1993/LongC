@@ -91,12 +91,18 @@ are equal */
 
 #define LONGC_IMPL_H_( T ) \
   T* (*new)(); \
-  T* (*new_from)(const char*); \
   T (*init)(); \
-  T (*init_from)(const char*); \
   T (*clone)(const T*); \
   void (*stack_free)(T*); \
   void (*heap_free)(T*);
+
+#define LONGC_IMPL_C_( T , SELF ) \
+  SELF->new = &NEW(T); \
+  SELF->init = &INIT(T); \
+  SELF->clone = &CLONE(T); \
+  SELF->stack_free = &STACK_FREE(T); \
+  SELF->heap_free = &HEAP_FREE(T);
+
 
 // new_from(...)
 //  @accepts type to be allocated, type from, and source object
@@ -104,10 +110,6 @@ are equal */
 #define NEW_FROM( T_SELF , T_SRC ) new_##T##_from_##T_SRC
 
 #define INIT_FROM( T_SELF , T_SRC ) init_##T##_from_##T_SRC
-
-#define FROM_TRAIT_H_( T_SELF, T_MACRO , T_ACTUAL) \
-  T_SELF* NEW_FROM( T_SELF , T_SRC)(T_ACTUAL src); \
-  T_SELF* INIT_FROM( T_SELF , T_SRC)(T_ACTUAL src);
 
 #define CONTAINS( T ) T##_contains
 
@@ -126,7 +128,7 @@ are equal */
 #define COLLECTION_TRAIT_H_( T , T_OWNED ) \
   T* NEW_WITH_CAPACITY(T)(const size_t cap); \
   T INIT_WITH_CAPACITY(T)(const size_t cap); \
-  bool CONTAINS(T)(const T* self, const T* item); \
+  bool CONTAINS(T)(const T* self, const T_OWNED* item); \
   u32 INDEX_OF(T)(const T* self, const T_OWNED* item); \
   bool STARTS_WITH(T)(const T* self, const T_OWNED* item); \
   bool ENDS_WITH(T)(const T* self, const T_OWNED* item);
@@ -138,6 +140,14 @@ are equal */
   u32 (*index_of)(const T*, const T_OWNED*); \
   bool (*starts_with)(const T*, const T_OWNED*); \
   bool (*ends_with)(const T*, const T_OWNED*);
+
+#define COLLECTION_IMPL_C_( T , SELF ) \
+  SELF->new_with_capacity = &NEW_WITH_CAPACITY(T); \
+  SELF->init_with_capacity = &INIT_WITH_CAPACITY(T); \
+  SELF->contains = &CONTAINS(T); \
+  SELF->index_of = &INDEX_OF(T); \
+  SELF->starts_with = &STARTS_WITH(T); \
+  SELF->ends_with = &ENDS_WITH(T);
 
 // approx(type, self, other, degree)
 //  @returns 1 or 0 - true or false.

@@ -26,7 +26,7 @@ typedef struct impl_stack {
   Stack (*init)();
   void (*push)(struct stack*,const void*);
   struct node* (*pop)(struct stack*);
-  struct node* (*peek)(struct stack*);
+  struct node* (*peek)(const struct stack*);
 } ImplStack;
 
 Stack* NEW(Stack)(ImplStack* methods);

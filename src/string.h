@@ -44,11 +44,11 @@ LONGC_TRAIT_H_(String)
 // i32 CMPR(String)(const String* self, const String* other);
 // bool EQ(String)(const String* self, const String* other);
 
-//STRING_TRAIT_H_(String)
-String* TO_STRING(String)(String* self);
-String* STRINGIFY(String)(const String* self);
-String* SUBSTR(String)(const String* self, const u32 begin, const u32 end);
-void CONCAT(String)(String* self, String* other);
+STRING_TRAIT_H_(String)
+// String* TO_STRING(String)(String* self);
+// String* STRINGIFY(String)(const String* self);
+// String* SUBSTR(String)(const String* self, const u32 begin, const u32 end);
+// void CONCAT(String)(String* self, String* other);
 
 //#define COLLECTION_TRAIT_( T , INT_CAP , T_OWNED )
 String* NEW_WITH_CAPACITY(String)(const size_t cap);

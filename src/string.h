@@ -35,6 +35,18 @@ typedef struct string String;
 	String* SUBSTR( T )(const T* self, const u32 begin, const u32 end); \
 	void CONCAT( T )(T* self, T* other);
 
+#define STRING_IMPL_H_( T ) \
+	String* (*to_string)(T*); \
+	String* (*stringify)(T*, T*); \
+	String* (*substr)(const T*, const u32, const u32); \
+	void (*concat)(T*, T*);
+
+struct impl_string {
+	LONGC_IMPL_H_(String)
+	COLLECTION_IMPL_H_(String,String)
+	STRING_IMPL_H_(String)
+};
+
 LONGC_TRAIT_H_(String)
 // String* NEW(String)();
 // String INIT(String)();
@@ -44,12 +56,6 @@ LONGC_TRAIT_H_(String)
 // i32 CMPR(String)(const String* self, const String* other);
 // bool EQ(String)(const String* self, const String* other);
 
-STRING_TRAIT_H_(String)
-// String* TO_STRING(String)(String* self);
-// String* STRINGIFY(String)(const String* self);
-// String* SUBSTR(String)(const String* self, const u32 begin, const u32 end);
-// void CONCAT(String)(String* self, String* other);
-
 COLLECTION_TRAIT_H_(String, String)
 // String* NEW_WITH_CAPACITY(String)(const size_t cap);
 // String INIT_WITH_CAPACITY(String)(const size_t cap);
@@ -57,6 +63,12 @@ COLLECTION_TRAIT_H_(String, String)
 // u32 INDEX_OF(String)(const String* self, const String* item);
 // bool STARTS_WITH(String)(const String* self, const String* item);
 // bool ENDS_WITH(String)(const String* self, const String* item);
+
+STRING_TRAIT_H_(String)
+// String* TO_STRING(String)(String* self);
+// String* STRINGIFY(String)(const String* self);
+// String* SUBSTR(String)(const String* self, const u32 begin, const u32 end);
+// void CONCAT(String)(String* self, String* other);
 
 #define SHIFT(T) T##_shift
 

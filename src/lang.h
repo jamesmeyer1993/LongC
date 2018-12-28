@@ -88,14 +88,15 @@ are equal */
   void STACK_FREE( T )(T* self); \
   i32 CMPR( T )(const T* self, const T* other); \
   bool EQ( T )(const T* self, const T* other);
-  //
-  // String* NEW(String)();
-  // String INIT(String)();
-  // String* CLONE(String)(const String* self);
-  // void HEAP_FREE(String)(String* self);
-  // void STACK_FREE(String)(String* self);
-  // i32 CMPR(String)(const String* self, const String* other);
-  // bool EQ(String)(const String* self, const String* other);
+
+#define LONGC_IMPL_H_( T ) \
+  T* (*new)(); \
+  T* (*new_from)(const char*); \
+  T (*init)(); \
+  T (*init_from)(const char*); \
+  T (*clone)(const T*); \
+  void (*stack_free)(T*); \
+  void (*heap_free)(T*);
 
 // new_from(...)
 //  @accepts type to be allocated, type from, and source object
@@ -130,12 +131,13 @@ are equal */
   bool STARTS_WITH(T)(const T* self, const T_OWNED* item); \
   bool ENDS_WITH(T)(const T* self, const T_OWNED* item);
 
-  // String* NEW_WITH_CAPACITY(String)(const size_t cap);
-  // String INIT_WITH_CAPACITY(String)(const size_t cap);
-  // bool CONTAINS(T)(T* self, T_OWNED* item);
-  // u32 INDEX_OF(String)(const String* self, const String* item);
-  // bool STARTS_WITH(String)(const String* self, const String* item);
-  // bool ENDS_WITH(String)(const String* self, const String* item);
+#define COLLECTION_IMPL_H_( T , T_OWNED ) \
+  T* (*new_with_capacity)(const size_t); \
+  T (*init_with_capacity)(const size_t); \
+  bool (*contains)(const T*, const T*); \
+  u32 (*index_of)(const T*, const T_OWNED*); \
+  bool (*starts_with)(const T*, const T_OWNED*); \
+  bool (*ends_with)(const T*, const T_OWNED*);
 
 // approx(type, self, other, degree)
 //  @returns 1 or 0 - true or false.
@@ -152,7 +154,7 @@ are equal */
       new_string_from("hello WORLD"), 5) -> returns true because there are 5
       equal elements
 
-    approx(string,
+    approx(T,
       new_string_from("hello world!"),
       new_string_from("hello WORLD!"), 50%)
       -> return true because the strings share 50% of the same elements

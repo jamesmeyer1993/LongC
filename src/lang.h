@@ -92,7 +92,7 @@ are equal */
 #define LONGC_IMPL_H_( T ) \
   T* (*new)(); \
   T (*init)(); \
-  T (*clone)(const T*); \
+  T* (*clone)(const T*); \
   void (*stack_free)(T*); \
   void (*heap_free)(T*);
 
@@ -103,13 +103,24 @@ are equal */
   SELF->stack_free = &STACK_FREE(T); \
   SELF->heap_free = &HEAP_FREE(T);
 
-
 // new_from(...)
 //  @accepts type to be allocated, type from, and source object
 //  @returns pointer to type T_SELF allocated on heap
-#define NEW_FROM( T_SELF , T_SRC ) new_##T##_from_##T_SRC
+#define NEW_FROM( T_SELF , T_SRC ) new_##T_SELF##_from_##T_SRC
 
-#define INIT_FROM( T_SELF , T_SRC ) init_##T##_from_##T_SRC
+#define INIT_FROM( T_SELF , T_SRC ) init_##T_SELF##_from_##T_SRC
+
+#define FROM_TRAIT_H_( T_SELF, T_SRC ) \
+  T_SELF* NEW_FROM(T_SELF, T_SRC)(const T_SRC *src); \
+  T_SELF INIT_FROM(T_SELF, T_SRC)(const T_SRC *src);
+
+#define FROM_IMPL_H_( T_SELF, T_SRC ) \
+  T_SELF* (*new_from_##T_SRC)(const T_SRC*); \
+  T_SELF (*init_from_##T_SRC)(const T_SRC*);
+
+#define FROM_IMPL_C_( T_SELF, T_SRC, SELF ) \
+  SELF->new_from_##T_SRC = &NEW_FROM(T_SELF , T_SRC); \
+  SELF->init_from_##T_SRC = &INIT_FROM(T_SELF, T_SRC);
 
 #define CONTAINS( T ) T##_contains
 

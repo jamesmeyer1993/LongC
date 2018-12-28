@@ -49,6 +49,10 @@ typedef struct string String;
 
 LONGC_TRAIT_H_(String)
 
+FROM_TRAIT_H_(String, char)
+// String* NEW_FROM(String, char)(const char *src);
+// String INIT_FROM(String, char)(const char *src);
+
 COLLECTION_TRAIT_H_(String, String)
 
 STRING_TRAIT_H_(String)
@@ -60,6 +64,7 @@ void SHIFT(String)(String* self, i32 amount);
 
 typedef struct impl_string {
 	LONGC_IMPL_H_(String)
+	FROM_IMPL_H_(String, char)
 	COLLECTION_IMPL_H_(String,String)
 	STRING_IMPL_H_(String)
 } ImplString;

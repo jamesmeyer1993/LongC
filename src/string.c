@@ -18,7 +18,7 @@ String* NEW(String)(){
   return NEW_WITH_CAPACITY(String)(DEFAULT_STRING_CAPACITY);
 }
 
-String* NEW_FROM(String, chars)(const char* str){
+String* NEW_FROM(String, char)(const char *str){
   String *self = malloc(sizeof(String));
 
   assert(self != NULL);
@@ -59,7 +59,7 @@ String INIT(String)(){
   return self;
 }
 
-String INIT_FROM(String, chars)(const char* str){
+String INIT_FROM(String, char)(const char *str){
   const size_t length = strlen(str);
   String self;
   self.str = malloc(length + 1);
@@ -286,6 +286,7 @@ ImplString INIT(ImplString)(){
   ImplString* ptr_self = &self;
 
   LONGC_IMPL_C_(String, ptr_self)
+  FROM_IMPL_C_(String, char, ptr_self)
   COLLECTION_IMPL_C_(String, ptr_self)
   STRING_IMPL_C_(String, ptr_self)
 
@@ -296,6 +297,7 @@ ImplString* NEW(ImplString)(){
   ImplString* self = malloc(sizeof(ImplString));
 
   LONGC_IMPL_C_(String, self)
+  FROM_IMPL_C_(String, char, self)
   COLLECTION_IMPL_C_(String, self)
   STRING_IMPL_C_(String, self)
 

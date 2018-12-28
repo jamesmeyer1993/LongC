@@ -83,11 +83,19 @@ are equal */
 #define LONGC_TRAIT_H_( T ) \
   T* NEW( T )(); \
   T INIT( T )(); \
-  T* CLONE( T )(T* self); \
-  T HEAP_FREE( T )(T* self); \
-  T STACK_FREE( T )(T* self); \
-  i32 CMPR( T )(T* self, T* other); \
-  bool EQ( T )(T* self, T* other);
+  T* CLONE( T )(const T* self); \
+  void HEAP_FREE( T )(T* self); \
+  void STACK_FREE( T )(T* self); \
+  i32 CMPR( T )(const T* self, const T* other); \
+  bool EQ( T )(const T* self, const T* other);
+  //
+  // String* NEW(String)();
+  // String INIT(String)();
+  // String* CLONE(String)(const String* self);
+  // void HEAP_FREE(String)(String* self);
+  // void STACK_FREE(String)(String* self);
+  // i32 CMPR(String)(const String* self, const String* other);
+  // bool EQ(String)(const String* self, const String* other);
 
 // new_from(...)
 //  @accepts type to be allocated, type from, and source object

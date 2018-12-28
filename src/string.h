@@ -35,14 +35,14 @@ typedef struct string String;
 	String* SUBSTR( T )(const T* self, const u32 begin, const u32 end); \
 	void CONCAT( T )(T* self, T* other);
 
-//LONGC_TRAIT_H_(String)
-String* NEW(String)();
-String INIT(String)();
-String* CLONE(String)(const String* self);
-void HEAP_FREE(String)(String* self);
-void STACK_FREE(String)(String* self);
-i32 CMPR(String)(const String* self, const String* other);
-bool EQ(String)(const String* self, const String* other);
+LONGC_TRAIT_H_(String)
+// String* NEW(String)();
+// String INIT(String)();
+// String* CLONE(String)(const String* self);
+// void HEAP_FREE(String)(String* self);
+// void STACK_FREE(String)(String* self);
+// i32 CMPR(String)(const String* self, const String* other);
+// bool EQ(String)(const String* self, const String* other);
 
 //STRING_TRAIT_H_(String)
 String* TO_STRING(String)(String* self);

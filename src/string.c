@@ -223,8 +223,6 @@ void SHIFT(String)(String* self, i32 amount){
   ASSERT_HEAP_LEN_AND_CAPACITY( self );
 }
 
-//	*	*	*	OPERATORS	*	*	*
-
 /* @INDEX_OF(String)
  *  @returns i32: either the index or -1 for not found
  *
@@ -257,6 +255,10 @@ u32 INDEX_OF(String)(const String *self, const String *target){
 
   free(buffer.str);
   return index;
+}
+
+bool CONTAINS(String)(const String* self, const String* target){
+  return INDEX_OF(String)(self, target) > 0;
 }
 
 bool ENDS_WITH(String)(const String *self, const String *target){

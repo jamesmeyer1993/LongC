@@ -122,13 +122,20 @@ are equal */
 
 #define INIT_WITH_CAPACITY( T ) init_##T##_with_capacity
 
-#define COLLECTION_TRAIT_( T , INT_CAP , T_OWNED ) \
-  T* NEW_WITH_CAPACITY(T)(size_t INT_CAP); \
-  T INIT_WITH_CAPACITY(T)(size_t INT_CAP); \
-  bool CONTAINS(T)(T* self, T* item); \
-  u32 INDEX_OF(T)(T* self, T* item); \
-  bool STARTS_WITH(T)(T* self, T* item); \
-  bool ENDS_WITH(T)(T* self, T* item);
+#define COLLECTION_TRAIT_H_( T , T_OWNED ) \
+  T* NEW_WITH_CAPACITY(T)(const size_t cap); \
+  T INIT_WITH_CAPACITY(T)(const size_t cap); \
+  bool CONTAINS(T)(const T* self, const T* item); \
+  u32 INDEX_OF(T)(const T* self, const T_OWNED* item); \
+  bool STARTS_WITH(T)(const T* self, const T_OWNED* item); \
+  bool ENDS_WITH(T)(const T* self, const T_OWNED* item);
+
+  // String* NEW_WITH_CAPACITY(String)(const size_t cap);
+  // String INIT_WITH_CAPACITY(String)(const size_t cap);
+  // bool CONTAINS(T)(T* self, T_OWNED* item);
+  // u32 INDEX_OF(String)(const String* self, const String* item);
+  // bool STARTS_WITH(String)(const String* self, const String* item);
+  // bool ENDS_WITH(String)(const String* self, const String* item);
 
 // approx(type, self, other, degree)
 //  @returns 1 or 0 - true or false.

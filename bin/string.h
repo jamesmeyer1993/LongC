@@ -50,13 +50,13 @@ STRING_TRAIT_H_(String)
 // String* SUBSTR(String)(const String* self, const u32 begin, const u32 end);
 // void CONCAT(String)(String* self, String* other);
 
-//#define COLLECTION_TRAIT_( T , INT_CAP , T_OWNED )
-String* NEW_WITH_CAPACITY(String)(const size_t cap);
-String INIT_WITH_CAPACITY(String)(const size_t cap);
-//bool CONTAINS(T)(T* self, T_OWNED* item);
-u32 INDEX_OF(String)(const String* self, const String* item);
-bool STARTS_WITH(String)(const String* self, const String* item);
-bool ENDS_WITH(String)(const String* self, const String* item);
+COLLECTION_TRAIT_H_(String, String)
+// String* NEW_WITH_CAPACITY(String)(const size_t cap);
+// String INIT_WITH_CAPACITY(String)(const size_t cap);
+// bool CONTAINS(T)(T* self, T_OWNED* item);
+// u32 INDEX_OF(String)(const String* self, const String* item);
+// bool STARTS_WITH(String)(const String* self, const String* item);
+// bool ENDS_WITH(String)(const String* self, const String* item);
 
 #define SHIFT(T) T##_shift
 

@@ -86,6 +86,14 @@ may be implemented for all types that utilize the OPTION_H_(T).
 #define IS_OK(T) is_ok_##T    // Checks if a result is ok
 #define IS_ERR(T) is_err_##T  // Checks if a result is an err
 
+/* RESULT_H_(T)
+The generic type header for the option type. This header implements the above
+definitions as function names. These functions include:
+  1. OK(T)(@accepts: T) -> @returns: RESULT(T)
+  2. ERR(T)(@accepts: void/nothing) -> @returns: RESULT(T)
+  3. IS_OK(T)(@accepts: RESULT(T)) -> @returns: bool
+  4. IS_ERR(T)(@accepts: RESULT(T)) -> @returns: bool
+*/
 #define RESULT_H_(T) \
   typedef struct result_##T { \
     T ok; \
@@ -97,6 +105,10 @@ may be implemented for all types that utilize the OPTION_H_(T).
   bool IS_ERR(T)(const RESULT(T) op); \
   bool IS_OK(T)(const RESULT(T) op);
 
+/* RESULT_C_
+The C complement for RESULT_H_ that generates the generic functions, OK(T),
+ERR(T), IS_OK(T), IS_ERR(T).
+*/
 #define RESULT_C_(T) \
   RESULT(T) OK(T)(const T ok){ \
     RESULT(T) res; \

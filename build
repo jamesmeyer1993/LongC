@@ -11,19 +11,23 @@ CC="gcc"
 cp -v src/lang.h bin/lang.h
 
 # block
-cp -v src/block.h bin/block.h
-$CC $FLAGS src/block.c -o bin/block.o
+#cp -v src/block.h bin/block.h
+#$CC $FLAGS src/block.c -o bin/block.o
 
 # stack
 cp -v src/stack.h bin/stack.h
 $CC $FLAGS src/stack.c -o bin/stack.o
 
 # string
-cp -v src/string.h bin/string.h
-$CC $FLAGS src/string.c -o bin/string.o
+#cp -v src/string.h bin/string.h
+#$CC $FLAGS src/string.c -o bin/string.o
 
 # compile to library
 ar rcs bin/liblongc.a \
-	bin/block.o \
-	bin/stack.o \
-	bin/string.o
+	bin/stack.o
+
+# compile to library
+#ar rcs bin/liblongc.a \
+#	bin/block.o \
+#	bin/stack.o \
+#	bin/string.o

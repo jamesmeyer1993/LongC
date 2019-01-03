@@ -1,0 +1,3 @@
+#!/bin/bash
+
+gcc -g -Wall -Wextra -pedantic -std=c11 -H "$1.c" -L "$HOME/dev/longc/bin" -l "longc" -o "$1"

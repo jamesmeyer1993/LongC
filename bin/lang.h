@@ -2,169 +2,209 @@
 #define _LANG_H_
 
 #include <stdbool.h>
+#include <stdint.h>
+#include <string.h>
 
-// Additional, clearly define types provided by LongC
-// Regular primitives - types
-typedef char i8;
-typedef unsigned char u8;
-typedef short i16;
-typedef unsigned short u16;
-typedef int i32;
-typedef unsigned int u32;
+/*
+Clearly defined primitive types are the standard of LongC. These types are
+refered to as "universal" types in that their names transcend spoken languages,
+programming languages, and their size is constant on all platforms.
+*/
+typedef int8_t i8;
+typedef uint8_t u8;
+typedef int16_t i16;
+typedef uint16_t u16;
+typedef int32_t i32;
+typedef uint32_t u32;
 typedef float f32;
-typedef long i64;
-typedef unsigned long u64;
+typedef int64_t i64;
+typedef uint64_t u64;
 typedef double f64;
 
-#define DEREF( TYPE , REF ) *( (TYPE*)REF )
+#define OPTION(T) Option_##T
+#define SOME(T) some_##T
+#define NONE(T) none_##T
+#define HAS_SOME(T) has_some_##T
+#define HAS_NONE(T) has_none_##T
 
-/* TUPLES
-Generates types automatically for strong type'd programs.
-An example tuple could be u32_
-*/
-#define _TUPLE_OF( T1 , T2 ) typedef \
-struct T1 ## _ ## T2 { \
-  const T1 a; \
-  const T2 b; \
-} T1 ## _ ## T2; \
+#define OPTION_H_(T) \
+  typedef struct option_##T { \
+    T some; \
+    bool none; \
+  } OPTION(T); \
+  \
+  OPTION(T) SOME(T)(const T some); \
+  OPTION(T) NONE(T)(void); \
+  bool HAS_NONE(T)(const OPTION(T) op); \
+  bool HAS_SOME(T)(const OPTION(T) op);
 
-#define DEF_TUPLES_LANG( T ) \
-  _TUPLE_OF( T , u8 ) \
-  _TUPLE_OF( T , i8 ) \
-  _TUPLE_OF( T , u16 ) \
-  _TUPLE_OF( T , i16 ) \
-  _TUPLE_OF( T , u32 ) \
-  _TUPLE_OF( T , i32 ) \
-  _TUPLE_OF( T , f32 ) \
-  _TUPLE_OF( T , u64 ) \
-  _TUPLE_OF( T , i64 ) \
-  _TUPLE_OF( T , f64 ) \
+#define OPTION_C_(T) \
+  OPTION(T) SOME(T)(const T some){ \
+    OPTION(T) self; \
+    memcpy(&self.some, &some, sizeof(T)); \
+    self.none = false; \
+    return self; \
+  } \
+  \
+  OPTION(T) NONE(T)(void){ \
+    OPTION(T) self; \
+    memset(&self.some, (i32)'\0', sizeof(T)); \
+    self.none = true; \
+    return self; \
+  } \
+  \
+  bool HAS_NONE(T)(const OPTION(T) op){ \
+    T none; \
+    size_t tsize = sizeof(T); \
+    memset(&none, (i32)'\0', tsize); \
+    if(op.none && memcmp(&none, &op.some, tsize) == 0){ \
+      return true; \
+    } \
+    return false; \
+  } \
+  \
+  bool HAS_SOME(T)(const OPTION(T) op){ \
+    return !HAS_NONE(T)(op); \
+  }
 
-/* This is basically a static for-each of the above */
-DEF_TUPLES_LANG(i8)
-DEF_TUPLES_LANG(u8)
-DEF_TUPLES_LANG(u16)
-DEF_TUPLES_LANG(i16)
-DEF_TUPLES_LANG(u32)
-DEF_TUPLES_LANG(i32)
-DEF_TUPLES_LANG(f32)
-DEF_TUPLES_LANG(u64)
-DEF_TUPLES_LANG(i64)
-DEF_TUPLES_LANG(f64)
-/* Done --> we've typedef'd (24^2)=576 typle types. Out of 34 them, both types
-are equal */
+#define RESULT(T) Result_##T
+#define OK(T) ok_##T
+#define ERR(T) err_##T
+#define IS_OK(T) is_ok_##T
+#define IS_ERR(T) is_err_##T
 
-//  *   *   *   *                          *    *   *
-//    *   *   * Generic Functions and Traits  *   *   *
-//  *   *   *   *                          *    *   *
+#define RESULT_H_(T) \
+  typedef struct result_##T { \
+    T ok; \
+    i32 err; \
+  } RESULT(T); \
+  \
+  RESULT(T) OK(T)(const T ok); \
+  RESULT(T) ERR(T)(const i32 err); \
+  bool IS_ERR(T)(const RESULT(T) op); \
+  bool IS_OK(T)(const RESULT(T) op);
+
+#define RESULT_C_(T) \
+  RESULT(T) OK(T)(const T ok){ \
+    RESULT(T) res; \
+    memcpy(&res.ok, &ok, sizeof(T)); \
+    res.err = 0; \
+    return res; \
+  } \
+  \
+  RESULT(T) ERR(T)(const i32 err){ \
+    RESULT(T) res; \
+    memset(&res.ok, (i32)'\0', sizeof(T)); \
+    res.err = err; \
+    return res; \
+  } \
+  \
+  bool IS_ERR(T)(const RESULT(T) op){ \
+    T ok; \
+    size_t tsize = sizeof(T); \
+    memset(&ok, (i32)'\0', tsize); \
+    if(op.err == 0 && memcmp(&ok, &op.ok, tsize) == 0){ \
+      return true; \
+    } \
+    return false; \
+  } \
+  \
+  bool IS_OK(T)(const RESULT(T) op){ \
+    return !IS_ERR(T)(op); \
+  }
+
+#define RETURNABLE_TRAIT_H_(T) \
+  OPTION_H_(T) \
+  RESULT_H_(T)
+
+#define RETURNABLE_TRAIT_C_(T) \
+  OPTION_C_(T) \
+  RESULT_C_(T)
+
+RETURNABLE_TRAIT_H_(bool)
+RETURNABLE_TRAIT_H_(char)
+RETURNABLE_TRAIT_H_(i8)
+RETURNABLE_TRAIT_H_(u8)
+RETURNABLE_TRAIT_H_(i16)
+RETURNABLE_TRAIT_H_(u16)
+RETURNABLE_TRAIT_H_(i32)
+RETURNABLE_TRAIT_H_(u32)
+RETURNABLE_TRAIT_H_(f32)
+RETURNABLE_TRAIT_H_(i64)
+RETURNABLE_TRAIT_H_(u64)
+RETURNABLE_TRAIT_H_(f64)
+
+#define CMPR( T ) T##_cmpr  // Shorthand for calling the comparable function
+#define EQ( T ) T##_eq      // Shorthand for calling the equals function
+
+#define COMPARABLE_TRAIT_H_(T) \
+  i32 CMPR( T )(const T* self, const T* other); \
+  bool EQ( T )(const T* self, const T* other);
+
+COMPARABLE_TRAIT_H_(bool)
+COMPARABLE_TRAIT_H_(char)
+COMPARABLE_TRAIT_H_(i8)
+COMPARABLE_TRAIT_H_(u8)
+COMPARABLE_TRAIT_H_(i16)
+COMPARABLE_TRAIT_H_(u16)
+COMPARABLE_TRAIT_H_(i32)
+COMPARABLE_TRAIT_H_(u32)
+COMPARABLE_TRAIT_H_(f32)
+COMPARABLE_TRAIT_H_(i64)
+COMPARABLE_TRAIT_H_(u64)
+COMPARABLE_TRAIT_H_(f64)
+
+#define DEREF( TYPE , POINTER ) *( (TYPE*)POINTER )
+#define REF(T) T##Ref
+
+typedef struct ref {
+  const void* self;
+  const size_t tsize;
+} Ref;
+
+RETURNABLE_TRAIT_H_(Ref)
+COMPARABLE_TRAIT_H_(Ref)
+
+#define REF_TRAIT_H_(T) \
+  typedef struct T##ref { \
+    const T* self; \
+  } REF(T);
 
 // new( T )
 //  @accepts type to be allocated on heap
 //  @returns pointer to type T allocated on heap
 #define NEW( T ) new_##T
-
 #define INIT( T ) init_##T
 
 // clone(...)
 //  @accepts type T, which is the type of SELF.
 //  @returns a full copy of the supplied type
 #define CLONE( T ) clone_##T
-
 #define HEAP_FREE( T ) heap_free_##T
-
 #define STACK_FREE( T ) stack_free_##T
 
-// This is the shorthand for calling the comparable function
-#define CMPR( T ) T##_cmpr
-
-// This is the shorthand for calling the equals function
-#define EQ( T ) T##_eq
-
 #define LONGC_TRAIT_H_( T ) \
-  T* NEW( T )(); \
+  \
+  REF_TRAIT_H_(T) \
+  RETURNABLE_TRAIT_H_(T) \
+  RETURNABLE_TRAIT_H_(REF(T)) \
+  COMPARABLE_TRAIT_H_(T) \
+  \
+  OPTION(REF(T)) NEW( T )(); \
   T INIT( T )(); \
-  T* CLONE( T )(const T* self); \
-  void HEAP_FREE( T )(T* self); \
-  void STACK_FREE( T )(T* self); \
-  i32 CMPR( T )(const T* self, const T* other); \
-  bool EQ( T )(const T* self, const T* other);
-
-/*
-#define LONGC_IMPL_H_( T ) \
-  T* (*new)(); \
-  T (*init)(); \
-  T* (*clone)(const T*); \
-  void (*stack_free)(T*); \
-  void (*heap_free)(T*);
-
-#define LONGC_IMPL_C_( T , SELF ) \
-  SELF->new = &NEW(T); \
-  SELF->init = &INIT(T); \
-  SELF->clone = &CLONE(T); \
-  SELF->stack_free = &STACK_FREE(T); \
-  SELF->heap_free = &HEAP_FREE(T);
-*/
+  OPTION(REF(T)) CLONE( T )(const T* self); \
+  RESULT(bool) HEAP_FREE( T )(T* self); \
+  RESULT(bool) STACK_FREE( T )(T* self);
 
 // new_from(...)
 //  @accepts type to be allocated, type from, and source object
 //  @returns pointer to type T_SELF allocated on heap
 #define NEW_FROM( T_SELF , T_SRC ) new_##T_SELF##_from_##T_SRC
-
 #define INIT_FROM( T_SELF , T_SRC ) init_##T_SELF##_from_##T_SRC
 
 #define FROM_TRAIT_H_( T_SELF, T_SRC ) \
-  T_SELF* NEW_FROM(T_SELF, T_SRC)(const T_SRC *src); \
-  T_SELF INIT_FROM(T_SELF, T_SRC)(const T_SRC *src);
-
-/*
-#define FROM_IMPL_H_( T_SELF, T_SRC ) \
-  T_SELF* (*new_from_##T_SRC)(const T_SRC*); \
-  T_SELF (*init_from_##T_SRC)(const T_SRC*);
-
-#define FROM_IMPL_C_( T_SELF, T_SRC, SELF ) \
-  SELF->new_from_##T_SRC = &NEW_FROM(T_SELF , T_SRC); \
-  SELF->init_from_##T_SRC = &INIT_FROM(T_SELF, T_SRC);
-*/
-
-#define CONTAINS( T ) T##_contains
-
-#define INDEX_OF( T ) T##_index_of
-
-#define STARTS_WITH( T ) T##_starts_with
-
-#define ENDS_WITH( T ) T##_ends_with
-
-#define RESIZE( T ) T##is_resize
-
-#define NEW_WITH_CAPACITY( T ) new_##T##_with_capacity
-
-#define INIT_WITH_CAPACITY( T ) init_##T##_with_capacity
-
-#define COLLECTION_TRAIT_H_( T , T_OWNED ) \
-  T* NEW_WITH_CAPACITY(T)(const size_t cap); \
-  T INIT_WITH_CAPACITY(T)(const size_t cap); \
-  bool CONTAINS(T)(const T* self, const T_OWNED* item); \
-  u32 INDEX_OF(T)(const T* self, const T_OWNED* item); \
-  bool STARTS_WITH(T)(const T* self, const T_OWNED* item); \
-  bool ENDS_WITH(T)(const T* self, const T_OWNED* item);
-
-/*
-#define COLLECTION_IMPL_H_( T , T_OWNED ) \
-  T* (*new_with_capacity)(const size_t); \
-  T (*init_with_capacity)(const size_t); \
-  bool (*contains)(const T*, const T*); \
-  u32 (*index_of)(const T*, const T_OWNED*); \
-  bool (*starts_with)(const T*, const T_OWNED*); \
-  bool (*ends_with)(const T*, const T_OWNED*);
-
-#define COLLECTION_IMPL_C_( T , SELF ) \
-  SELF->new_with_capacity = &NEW_WITH_CAPACITY(T); \
-  SELF->init_with_capacity = &INIT_WITH_CAPACITY(T); \
-  SELF->contains = &CONTAINS(T); \
-  SELF->index_of = &INDEX_OF(T); \
-  SELF->starts_with = &STARTS_WITH(T); \
-  SELF->ends_with = &ENDS_WITH(T);
-*/
+  OPTION(REF(T)) NEW_FROM(T_SELF, T_SRC)(const T_SRC *src); \
+  OPTION(T_SELF) INIT_FROM(T_SELF, T_SRC)(const T_SRC *src);
 
 // approx(type, self, other, degree)
 //  @returns 1 or 0 - true or false.

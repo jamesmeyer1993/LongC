@@ -21,12 +21,20 @@ typedef int64_t i64;
 typedef uint64_t u64;
 typedef double f64;
 
-#define OPTION(T) Option_##T
-#define SOME(T) some_##T
-#define NONE(T) none_##T
-#define HAS_SOME(T) has_some_##T
-#define HAS_NONE(T) has_none_##T
+#define OPTION(T) Option_##T      // Can be, exclusively, some or none
+#define SOME(T) some_##T          // Constructs an option with some item
+#define NONE(T) none_##T          // Constructs an option with no item
+#define HAS_SOME(T) has_some_##T  // Checks for some
+#define HAS_NONE(T) has_none_##T  // Checks for none
 
+/* OPTION_H_(T)
+The generic type header for the option type. This header implements the above
+definitions as function names. These functions include:
+  1. Some(T)(@accepts: T) -> @returns: Option(T)
+  2. None(T)(@accepts: void/nothing) -> @returns: Option(T)
+  3. has_some(T)(@accepts: Option(T)) -> @returns: bool
+  4. has_none(T)(@accepts: Option(T)) -> @returns: bool
+*/
 #define OPTION_H_(T) \
   typedef struct option_##T { \
     T some; \
@@ -38,6 +46,11 @@ typedef double f64;
   bool HAS_NONE(T)(const OPTION(T) op); \
   bool HAS_SOME(T)(const OPTION(T) op);
 
+/* OPTION_C_(T)
+The generic type C complement for OPTION_H_(T). Because of the generic nature of
+the Option type, this macro is provided so the exact behavior of the option type
+may be implemented for all types that utilize the OPTION_H_(T).
+*/
 #define OPTION_C_(T) \
   OPTION(T) SOME(T)(const T some){ \
     OPTION(T) self; \
@@ -67,11 +80,11 @@ typedef double f64;
     return !HAS_NONE(T)(op); \
   }
 
-#define RESULT(T) Result_##T
-#define OK(T) ok_##T
-#define ERR(T) err_##T
-#define IS_OK(T) is_ok_##T
-#define IS_ERR(T) is_err_##T
+#define RESULT(T) Result_##T  // Can be, exclusively, ok or err
+#define OK(T) ok_##T          // Constructs a result with an ok of T
+#define ERR(T) err_##T        // Constructs a result with an err code
+#define IS_OK(T) is_ok_##T    // Checks if a result is ok
+#define IS_ERR(T) is_err_##T  // Checks if a result is an err
 
 #define RESULT_H_(T) \
   typedef struct result_##T { \
